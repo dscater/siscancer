@@ -85,11 +85,11 @@ const scrollActive = () => {
     >
         <v-sheet>
             <div
-                class="w-100 d-flex flex-column align-center elevation-1 bg-blue pa-2 __info_usuario"
+                class="w-100 d-flex flex-column align-center elevation-1 bg-cyan-darken-3 pa-2 __info_usuario"
             >
                 <v-avatar
                     class="mb-1"
-                    color="blue-darken-3"
+                    color="cyan-darken-2"
                     :size="`${!rail ? '64' : '32'}`"
                 >
                     <v-img
@@ -143,93 +143,91 @@ const scrollActive = () => {
             >
 
             <v-list-item
+                :class="[route_current == 'diagnosticos.index' ? 'active' : '']"
+                v-if="oUser.permisos.includes('diagnosticos.index')"
+                prepend-icon="mdi-image-edit"
+                @click="cambiarUrl(route('diagnosticos.index'))"
+                link
+            >
+                <v-list-item-title>Diagnóstico por Imágenes</v-list-item-title>
+                <v-tooltip
+                    v-if="rail && !mobile"
+                    color="white"
+                    activator="parent"
+                    location="end"
+                    >Diagnóstico por Imágenes</v-tooltip
+                >
+            </v-list-item>
+
+            <v-list-item
                 :class="[
-                    route_current == 'obras.index' ||
-                    route_current == 'obras.create' ||
-                    route_current == 'obras.edit'
+                    route_current == 'historial_pacientes.index'
                         ? 'active'
                         : '',
                 ]"
-                v-if="oUser.permisos.includes('obras.index')"
-                prepend-icon="mdi-view-list"
-                @click="cambiarUrl(route('obras.index'))"
-                link
-            >
-                <v-list-item-title>Obras</v-list-item-title>
-                <v-tooltip
-                    v-if="rail && !mobile"
-                    color="white"
-                    activator="parent"
-                    location="end"
-                    >Obras</v-tooltip
-                >
-            </v-list-item>
-
-            <v-list-item
-                :class="[route_current == 'categorias.index' ? 'active' : '']"
-                v-if="oUser.permisos.includes('categorias.index')"
+                v-if="oUser.permisos.includes('historial_pacientes.index')"
                 prepend-icon="mdi-clipboard-list"
-                @click="cambiarUrl(route('categorias.index'))"
+                @click="cambiarUrl(route('historial_pacientes.index'))"
                 link
             >
-                <v-list-item-title>Categorías</v-list-item-title>
+                <v-list-item-title>Historial Pacientes</v-list-item-title>
                 <v-tooltip
                     v-if="rail && !mobile"
                     color="white"
                     activator="parent"
                     location="end"
-                    >Categorías</v-tooltip
+                    >Historial Pacientes</v-tooltip
                 >
             </v-list-item>
 
             <v-list-item
-                :class="[route_current == 'maquinarias.index' ? 'active' : '']"
-                v-if="oUser.permisos.includes('maquinarias.index')"
-                prepend-icon="mdi-tow-truck"
-                @click="cambiarUrl(route('maquinarias.index'))"
+                :class="[route_current == 'pacientes.index' ? 'active' : '']"
+                v-if="oUser.permisos.includes('pacientes.index')"
+                prepend-icon="mdi-account-multiple"
+                @click="cambiarUrl(route('pacientes.index'))"
                 link
             >
-                <v-list-item-title>Maquinarias</v-list-item-title>
+                <v-list-item-title>Pacientes</v-list-item-title>
                 <v-tooltip
                     v-if="rail && !mobile"
                     color="white"
                     activator="parent"
                     location="end"
-                    >Maquinarias</v-tooltip
+                    >Pacientes</v-tooltip
                 >
             </v-list-item>
 
             <v-list-item
-                :class="[route_current == 'operarios.index' ? 'active' : '']"
-                v-if="oUser.permisos.includes('operarios.index')"
+                :class="[route_current == 'doctors.index' ? 'active' : '']"
+                v-if="oUser.permisos.includes('doctors.index')"
                 prepend-icon="mdi-account-group-outline"
-                @click="cambiarUrl(route('operarios.index'))"
+                @click="cambiarUrl(route('doctors.index'))"
                 link
             >
-                <v-list-item-title>Operarios</v-list-item-title>
+                <v-list-item-title>Doctores</v-list-item-title>
                 <v-tooltip
                     v-if="rail && !mobile"
                     color="white"
                     activator="parent"
                     location="end"
-                    >Operarios</v-tooltip
+                    >Doctores</v-tooltip
                 >
             </v-list-item>
 
             <v-list-item
-                :class="[route_current == 'materials.index' ? 'active' : '']"
-                v-if="oUser.permisos.includes('materials.index')"
-                prepend-icon="mdi-view-list-outline"
-                @click="cambiarUrl(route('materials.index'))"
+                :class="[route_current == 'entrenamientos.index' ? 'active' : '']"
+                v-if="oUser.permisos.includes('entrenamientos.index')"
+                prepend-icon="mdi-image-multiple"
+                @click="cambiarUrl(route('entrenamientos.index'))"
                 link
             >
-                <v-list-item-title>Materiales</v-list-item-title>
+                <v-list-item-title>Entrenamiento de Imágenes</v-list-item-title>
                 <v-tooltip
                     v-if="rail && !mobile"
                     color="white"
                     activator="parent"
                     location="end"
-                    >Materiales</v-tooltip
+                    >Entrenamiento de Imágenes</v-tooltip
                 >
             </v-list-item>
 

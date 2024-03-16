@@ -16,10 +16,30 @@ class UserController extends Controller
             "usuarios.edit",
             "usuarios.destroy",
 
-            "institucions.index",
-            "institucions.create",
-            "institucions.edit",
-            "institucions.destroy",
+            "doctors.index",
+            "doctors.create",
+            "doctors.edit",
+            "doctors.destroy",
+
+            "pacientes.index",
+            "pacientes.create",
+            "pacientes.edit",
+            "pacientes.destroy",
+
+            "historial_pacientes.index",
+            "historial_pacientes.create",
+            "historial_pacientes.edit",
+            "historial_pacientes.destroy",
+
+            "diagnosticos.index",
+            "diagnosticos.create",
+            "diagnosticos.edit",
+            "diagnosticos.destroy",
+
+            "entrenamientos.index",
+            "entrenamientos.create",
+            "entrenamientos.edit",
+            "entrenamientos.destroy",
         ],
         "DOCTOR" => [
             "vuetify",

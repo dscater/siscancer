@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('materno')->nullable();
             $table->string('ci');
             $table->string('ci_exp');
-            $table->string('dir', 255);
+            $table->string('dir', 255)->nullable();
             $table->string('email')->nullable();
             $table->string('fono');
             $table->string('tipo', 255);

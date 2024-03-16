@@ -45,8 +45,8 @@ const { oInstitucion } = useInstitucion();
                             }}</span>
                         </v-avatar>
                     </div>
-                    <div v-show="!rail && !mobile">
-                        {{ oInstitucion.nombre }}
+                    <div v-show="!rail && !mobile" class="text-white">
+                        {{ oInstitucion.razon_social }}
                     </div>
                 </div>
                 <div class="acciones">
@@ -59,7 +59,7 @@ const { oInstitucion } = useInstitucion();
                 <v-menu :width="mobile ? '50%' : '13%'" rounded>
                     <template v-slot:activator="{ props }">
                         <v-btn icon v-bind="props">
-                            <v-avatar color="blue-darken-4">
+                            <v-avatar color="cyan-darken-2">
                                 <v-img
                                     cover
                                     v-if="oUser.url_foto"
@@ -75,7 +75,7 @@ const { oInstitucion } = useInstitucion();
                     <v-card>
                         <v-card-text class="pa-0 pt-4">
                             <div class="mx-auto text-center">
-                                <v-avatar color="blue-darken-4">
+                                <v-avatar color="cyan-darken-2">
                                     <v-img
                                         cover
                                         v-if="oUser.url_foto"

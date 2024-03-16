@@ -35,12 +35,6 @@ watch(
 
 const { flash } = usePage().props;
 
-const listTipos = [
-    "GERENTE GENERAL",
-    "GERENTE REGIONAL",
-    "ADMINISTRADOR DE PERSONAL",
-    "ENCARGADO DE OBRA",
-];
 const listExpedido = [
     { value: "LP", label: "La Paz" },
     { value: "CB", label: "Cochabamba" },
@@ -118,7 +112,7 @@ const cerrarDialog = () => {
     <v-row justify="center">
         <v-dialog v-model="dialog" width="1024" persistent scrollable>
             <v-card>
-                <v-card-title class="border-b bg-blue pa-5">
+                <v-card-title class="border-b bg-cyan-darken-2 pa-5">
                     <v-icon
                         icon="mdi-close"
                         class="float-right"
@@ -295,28 +289,6 @@ const cerrarDialog = () => {
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
-                                    <v-select
-                                        :hide-details="
-                                            form.errors?.tipo ? false : true
-                                        "
-                                        :error="
-                                            form.errors?.tipo ? true : false
-                                        "
-                                        :error-messages="
-                                            form.errors?.tipo
-                                                ? form.errors?.tipo
-                                                : ''
-                                        "
-                                        density="compact"
-                                        variant="outlined"
-                                        clearable
-                                        :items="listTipos"
-                                        label="Tipo de Usuario*"
-                                        v-model="form.tipo"
-                                        required
-                                    ></v-select>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
                                     <v-file-input
                                         :hide-details="
                                             form.errors?.foto ? false : true
@@ -396,7 +368,7 @@ const cerrarDialog = () => {
                         Cancelar
                     </v-btn>
                     <v-btn
-                        class="bg-blue"
+                        class="bg-cyan-darken-2"
                         prepend-icon="mdi-content-save"
                         @click="enviarFormulario"
                     >

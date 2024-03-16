@@ -55,7 +55,7 @@ const { props } = usePage();
                                 <h4
                                     class="text-h4 text-center font-weight-black"
                                 >
-                                    20
+                                    1
                                 </h4>
                             </v-col>
                         </v-row>
@@ -79,12 +79,12 @@ const { props } = usePage();
                                 <h4
                                     class="text-h5 text-center font-weight-black mb-3"
                                 >
-                                    Usuarios
+                                    Doctores
                                 </h4>
                                 <h4
                                     class="text-h4 text-center font-weight-black"
                                 >
-                                    20
+                                    1
                                 </h4>
                             </v-col>
                         </v-row>
@@ -108,12 +108,12 @@ const { props } = usePage();
                                 <h4
                                     class="text-h5 text-center font-weight-black mb-3"
                                 >
-                                    Usuarios
+                                    Pacientes
                                 </h4>
                                 <h4
                                     class="text-h4 text-center font-weight-black"
                                 >
-                                    20
+                                    1
                                 </h4>
                             </v-col>
                         </v-row>

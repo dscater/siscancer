@@ -81,40 +81,13 @@ Route::middleware('auth')->group(function () {
         ["index", "store"]
     );
 
-    // MATERIALES
+    // DOCTORES
     Route::get("/materials/paginado", [MaterialController::class, 'paginado'])->name("materials.paginado");
     Route::get("/materials/listado", [MaterialController::class, 'listado'])->name("materials.listado");
     Route::resource("materials", MaterialController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
 
-    // OPERARIOS
-    Route::get("/operarios/paginado", [OperarioController::class, 'paginado'])->name("operarios.paginado");
-    Route::get("/operarios/listado", [OperarioController::class, 'listado'])->name("operarios.listado");
-    Route::resource("operarios", OperarioController::class)->only(
-        ["index", "store", "update", "show", "destroy"]
-    );
-
-    // MAQUINARIAS
-    Route::get("/maquinarias/paginado", [MaquinariaController::class, 'paginado'])->name("maquinarias.paginado");
-    Route::get("/maquinarias/listado", [MaquinariaController::class, 'listado'])->name("maquinarias.listado");
-    Route::resource("maquinarias", MaquinariaController::class)->only(
-        ["index", "store", "update", "show", "destroy"]
-    );
-
-    // CATEGORIAS
-    Route::get("/categorias/paginado", [CategoriaController::class, 'paginado'])->name("categorias.paginado");
-    Route::get("/categorias/listado", [CategoriaController::class, 'listado'])->name("categorias.listado");
-    Route::resource("categorias", CategoriaController::class)->only(
-        ["index", "store", "update", "show", "destroy"]
-    );
-
-    // OBRAS
-    Route::get("/obras/paginado", [ObraController::class, 'paginado'])->name("obras.paginado");
-    Route::get("/obras/listado", [ObraController::class, 'listado'])->name("obras.listado");
-    Route::resource("obras", ObraController::class)->only(
-        ["index", "create", "edit", "store", "update", "show", "destroy"]
-    );
 });
 
 require __DIR__ . '/auth.php';
