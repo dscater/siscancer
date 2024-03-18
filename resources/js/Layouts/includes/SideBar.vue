@@ -22,8 +22,8 @@ const user_logeado = ref({
 });
 
 const submenus = {
-    vuetify: "Multinivel1",
-    vuetify2: "Multinivel1",
+    "reportes.usuarios": "Reportes",
+    "reportes.usuarios2": "Reportes",
 };
 
 const route_current = ref("");
@@ -215,7 +215,9 @@ const scrollActive = () => {
             </v-list-item>
 
             <v-list-item
-                :class="[route_current == 'entrenamientos.index' ? 'active' : '']"
+                :class="[
+                    route_current == 'entrenamientos.index' ? 'active' : '',
+                ]"
                 v-if="oUser.permisos.includes('entrenamientos.index')"
                 prepend-icon="mdi-image-multiple"
                 @click="cambiarUrl(route('entrenamientos.index'))"
@@ -252,18 +254,18 @@ const scrollActive = () => {
                 ><span v-if="rail && !mobile" class="text-center d-block"
                     ><v-icon>mdi-dots-horizontal</v-icon></span
                 >
-                <span v-else>MULTINIVEL</span></v-list-item
+                <span v-else>REPORTES</span></v-list-item
             >
             <!-- SUBGROUP -->
-            <v-list-group value="Multinivel1">
+            <v-list-group value="Reportes">
                 <template v-slot:activator="{ props }">
                     <v-list-item
                         v-bind="props"
-                        prepend-icon="mdi-list-box"
-                        title="Multinivel 1"
+                        prepend-icon="mdi-file-document-multiple"
+                        title="Reportes"
                         :class="[
-                            route_current == 'vuetify' ||
-                            route_current == 'vuetify2'
+                            route_current == 'reportes.usuarios' ||
+                            route_current == 'reportes.usuarios2'
                                 ? 'active'
                                 : '',
                         ]"
@@ -273,15 +275,17 @@ const scrollActive = () => {
                             color="white"
                             activator="parent"
                             location="end"
-                            >Multinivel 1</v-tooltip
+                            >Reportes</v-tooltip
                         ></v-list-item
                     >
                 </template>
                 <v-list-item
                     prepend-icon="mdi-chevron-right"
                     title="Vuetify"
-                    :class="[route_current == 'vuetify' ? 'active' : '']"
-                    @click="cambiarUrl(route('vuetify'))"
+                    :class="[
+                        route_current == 'reportes.usuarios' ? 'active' : '',
+                    ]"
+                    @click="cambiarUrl(route('reportes.usuarios'))"
                     link
                 >
                     <v-tooltip
@@ -289,7 +293,7 @@ const scrollActive = () => {
                         color="white"
                         activator="parent"
                         location="end"
-                        >Vuetify</v-tooltip
+                        >Usuarios</v-tooltip
                     ></v-list-item
                 >
                 <v-list-item
