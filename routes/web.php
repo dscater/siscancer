@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\InstitucionController;
 use App\Http\Controllers\MaquinariaController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ObraController;
 use App\Http\Controllers\OperarioController;
+use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
@@ -82,12 +84,18 @@ Route::middleware('auth')->group(function () {
     );
 
     // DOCTORES
-    Route::get("/materials/paginado", [MaterialController::class, 'paginado'])->name("materials.paginado");
-    Route::get("/materials/listado", [MaterialController::class, 'listado'])->name("materials.listado");
-    Route::resource("materials", MaterialController::class)->only(
+    Route::get("/doctors/paginado", [DoctorController::class, 'paginado'])->name("doctors.paginado");
+    Route::get("/doctors/listado", [DoctorController::class, 'listado'])->name("doctors.listado");
+    Route::resource("doctors", DoctorController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
 
+    // PACIENTES
+    Route::get("/pacientes/paginado", [PacienteController::class, 'paginado'])->name("pacientes.paginado");
+    Route::get("/pacientes/listado", [PacienteController::class, 'listado'])->name("pacientes.listado");
+    Route::resource("pacientes", PacienteController::class)->only(
+        ["index", "store", "update", "show", "destroy"]
+    );
 });
 
 require __DIR__ . '/auth.php';
