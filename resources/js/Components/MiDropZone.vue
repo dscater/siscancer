@@ -1,0 +1,197 @@
+<template>
+    <div
+        class="dropzone"
+        @dragover.stop="handleDragOver"
+        @dragleave.stop="handleDragLeave"
+        @drop.stop="handleDrop"
+        @click="openFilePicker"
+    >
+        <div class="archivos_cargados">
+            <div class="archivo" v-for="(item, index) in archivos_existentes">
+                <button type="button"class="btn_quitar" @click.stop="quitarArchivo(index)">
+                    <i class="mdi mdi-close"></i>
+                </button>
+                <div class="thumbail">
+                    <img :src="item.url_file" alt="Icon" />
+                </div>
+                <div class="info_archivo">
+                    <div class="nombre">
+                        {{ item.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contenedor_info">
+            <div v-if="!dragging" class="msj_drag">
+                Arrastra y suelta archivos aquí o haz clic para seleccionar
+                archivos
+            </div>
+            <div v-else class="zona_drop">Suelta los archivos aquí</div>
+        </div>
+        <input
+            type="file"
+            multiple
+            style="display: none"
+            ref="fileInput"
+            id="fileInput"
+            @change="handleFiles"
+        />
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            dragging: false,
+            archivos_existentes: [],
+        };
+    },
+    methods: {
+        quitarArchivo(index) {
+            if (this.archivos_existentes[index].id != 0) {
+                // existente en BD
+            }
+            this.archivos_existentes.splice(index, 1);
+        },
+        handleDrop(event) {
+            event.preventDefault();
+            this.dragging = false;
+            const files = event.dataTransfer.files;
+            this.handleFiles(files);
+        },
+        handleFiles(eventOrFiles) {
+            let files = [];
+            if (eventOrFiles instanceof Event) {
+                // Si se inició la carga mediante clic
+                files = eventOrFiles.target.files;
+            } else {
+                // Si se inició la carga mediante arrastrar y soltar
+                files = eventOrFiles;
+            }
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                this.generateThumbnail(file);
+            }
+            this.$refs.fileInput.value = null;
+        },
+        openFilePicker() {
+            // Simula el clic en el input de tipo file
+            this.$refs.fileInput.click();
+        },
+        handleDragOver(event) {
+            event.preventDefault();
+            this.dragging = true;
+        },
+        handleDragLeave(event) {
+            event.preventDefault();
+            this.dragging = false;
+        },
+        generateThumbnail(file) {
+            console.log(file);
+            const reader = new FileReader();
+            if (file.type.startsWith("image/")) {
+                reader.onload = (e) => {
+                    this.archivos_existentes.push({
+                        id: 0,
+                        name: file.name,
+                        url_file: e.target.result,
+                    });
+                };
+            } else {
+                this.archivos_existentes.push({
+                    id: 0,
+                    name: file.name,
+                    url_file: url_assets + "/imgs/attach.png",
+                });
+            }
+
+            reader.readAsDataURL(file);
+        },
+    },
+};
+</script>
+
+<style scoped>
+.dropzone {
+    padding: 20px;
+    width: 100%;
+    border: dotted 2px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropzone .archivos {
+    width: 100%;
+    text-align: center;
+}
+
+.dropzone button {
+    width: 20%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.dropzone .contenedor_info {
+    text-align: center;
+    width: 100%;
+}
+.dropzone .msj_drag,
+.dropzone .zona_drop {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    background: #ececec;
+}
+
+.dropzone .zona_drop {
+    background-color: rgb(145, 255, 231);
+}
+
+.archivos_cargados {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.archivos_cargados .archivo {
+    position: relative;
+    width: 80px;
+}
+
+.archivos_cargados .archivo .thumbail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    height: 40px;
+}
+.archivos_cargados .archivo .thumbail img {
+    height: 50px;
+}
+
+.archivos_cargados .archivo .info_archivo {
+    width: 100%;
+}
+.archivos_cargados .archivo .info_archivo .nombre {
+    font-size: 0.9em;
+}
+
+.archivos_cargados .archivo .btn_quitar {
+    position: absolute;
+    margin: 0px;
+    top: -10px;
+    right: 0px;
+    font-size: 1.3em;
+}
+
+.archivos_cargados .archivo .btn_quitar:hover {
+    color: red;
+}
+</style>

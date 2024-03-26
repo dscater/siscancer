@@ -47,9 +47,33 @@ class PacienteController extends Controller
         return Inertia::render("Pacientes/Index");
     }
 
-    public function listado()
+    public function listado(Request $request)
     {
-        $pacientes = Paciente::select("pacientes.*")->get();
+        $pacientes = Paciente::select("pacientes.*");
+
+        if ($request->sin_historial) {
+            if ($request->id) {
+                $pacientes = $pacientes->whereNotExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('historial_pacientes')
+                        ->whereRaw('historial_pacientes.paciente_id = pacientes.id');
+                })->orWhere(function ($subquery) use ($request) {
+                    $subquery->whereIn('pacientes.id', [$request->id]);
+                });
+            } else {
+                $pacientes = $pacientes->whereNotExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('historial_pacientes')
+                        ->whereRaw('historial_pacientes.paciente_id = pacientes.id');
+                });
+            }
+        }
+
+        if ($request->order) {
+            $pacientes->orderBy("id", $request->order);
+        }
+
+        $pacientes = $pacientes->get();
         return response()->JSON([
             "pacientes" => $pacientes
         ]);

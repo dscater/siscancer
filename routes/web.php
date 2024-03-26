@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\HistorialPacienteController;
 use App\Http\Controllers\InstitucionController;
 use App\Http\Controllers\MaquinariaController;
 use App\Http\Controllers\MaterialController;
@@ -95,6 +96,13 @@ Route::middleware('auth')->group(function () {
     Route::get("/pacientes/listado", [PacienteController::class, 'listado'])->name("pacientes.listado");
     Route::resource("pacientes", PacienteController::class)->only(
         ["index", "store", "update", "show", "destroy"]
+    );
+
+    // HISTORIAL DE PACIENTES
+    Route::get("/historial_pacientes/paginado", [HistorialPacienteController::class, 'paginado'])->name("historial_pacientes.paginado");
+    Route::get("/historial_pacientes/listado", [HistorialPacienteController::class, 'listado'])->name("historial_pacientes.listado");
+    Route::resource("historial_pacientes", HistorialPacienteController::class)->only(
+        ["index", "create", "store", "edit", "update", "show", "destroy"]
     );
 });
 
