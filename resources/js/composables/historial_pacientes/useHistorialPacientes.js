@@ -148,7 +148,7 @@ export const useHistorialPacientes = () => {
         }
     };
 
-    const setHistorialPaciente = (item = null) => {
+    const setHistorialPaciente = (item = null, archivos = false) => {
         if (item) {
             oHistorialPaciente.id = item.id;
             oHistorialPaciente.paciente_id = item.paciente_id;
@@ -166,6 +166,12 @@ export const useHistorialPacientes = () => {
             oHistorialPaciente.parientes_ccc = item.parientes_ccc;
             oHistorialPaciente.parientes_cce = item.parientes_cce;
             oHistorialPaciente.parientes_cotc = item.parientes_cotc;
+            oHistorialPaciente.historial_archivos = reactive([]);
+            if (archivos) {
+                oHistorialPaciente.historial_archivos = reactive([
+                    ...item.historial_archivos,
+                ]);
+            }
             oHistorialPaciente._method = "PUT";
             return oHistorialPaciente;
         }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\HistorialArchivoController;
 use App\Http\Controllers\HistorialPacienteController;
 use App\Http\Controllers\InstitucionController;
 use App\Http\Controllers\MaquinariaController;
@@ -104,6 +105,9 @@ Route::middleware('auth')->group(function () {
     Route::resource("historial_pacientes", HistorialPacienteController::class)->only(
         ["index", "create", "store", "edit", "update", "show", "destroy"]
     );
+
+    // HISTORIAL ARCHIVOS
+    Route::delete("/historial_archivos/{historial_archivo}", [HistorialArchivoController::class, 'destroy'])->name("historial_archivos.destroy");
 });
 
 require __DIR__ . '/auth.php';

@@ -23,6 +23,8 @@ const tituloDialog = computed(() => {
         : `Editar Historial de Paciente`;
 });
 
+let disabled = ref(false);
+
 const enviarFormulario = () => {
     let url =
         form["_method"] == "POST"
@@ -69,6 +71,18 @@ const cargarListas = async (paciente_id = null, sin_historial = false) => {
     });
 };
 
+const detectaArchivos = (files) => {
+    disabled.value = true;
+    form.historial_archivos = [];
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        form.historial_archivos.push(file.file);
+    }
+    setTimeout(() => {
+        disabled.value = false;
+    }, 500);
+};
+
 onMounted(() => {
     if (form.id && form.id != "") {
         cargarListas(form.paciente_id, true);
@@ -87,7 +101,11 @@ onMounted(() => {
                     class="mr-2"
                     @click="cambiarUrl(route('historial_pacientes.index'))"
                 ></v-btn>
-                <v-btn icon="mdi-content-save" color="primary"></v-btn>
+                <v-btn
+                    icon="mdi-content-save"
+                    color="cyan-darken-2"
+                    @click="enviarFormulario"
+                ></v-btn>
             </template>
             <template v-if="!mobile">
                 <v-btn
@@ -98,6 +116,7 @@ onMounted(() => {
                     Volver</v-btn
                 >
                 <v-btn
+                    :disbled="disabled"
                     :prepend-icon="
                         oHistorialPaciente.id != 0
                             ? 'mdi-sync'
@@ -547,7 +566,9 @@ onMounted(() => {
                                     <h4>Adjuntar estudios realizados</h4>
                                 </v-col>
                                 <v-col cols="12">
-                                    <MiDropZone></MiDropZone>
+                                    <MiDropZone
+                                        @UpdateFiles="detectaArchivos"
+                                    ></MiDropZone>
                                 </v-col>
                             </v-row>
                         </form>

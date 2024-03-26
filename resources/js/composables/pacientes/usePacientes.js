@@ -28,9 +28,7 @@ export const usePacientes = () => {
         try {
             const response = await axios.get(route("pacientes.listado"), {
                 headers: { Accept: "application/json" },
-                params: {
-                    data,
-                },
+                params: data,
             });
             return response.data.pacientes;
         } catch (err) {

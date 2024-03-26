@@ -21,6 +21,8 @@ import { useMenu } from "@/composables/useMenu";
 import { Head } from "@inertiajs/vue3";
 import { useHistorialPacientes } from "@/composables/historial_pacientes/useHistorialPacientes";
 import { ref, onMounted } from "vue";
+import VerArchivos from "./VerArchivos.vue";
+
 const { mobile, identificaDispositivo, cambiarUrl } = useMenu();
 const { setLoading } = useApp();
 onMounted(() => {
@@ -30,7 +32,11 @@ onMounted(() => {
     }, 300);
 });
 
-const { getHistorialPacientesApi, deleteHistorialPaciente } = useHistorialPacientes();
+const {
+    getHistorialPacientesApi,
+    deleteHistorialPaciente,
+    setHistorialPaciente,
+} = useHistorialPacientes();
 const responseHistorialPacientes = ref([]);
 const listHistorialPacientes = ref([]);
 const itemsPerPage = ref(5);
@@ -41,16 +47,27 @@ const headers = ref([
         sortable: false,
     },
     {
-        title: "Nombre de la HistorialPaciente",
+        title: "Paciente",
         align: "start",
         sortable: false,
     },
-    { title: "Gerente Regional", align: "start", sortable: false },
-    { title: "Encargado de HistorialPaciente", align: "start", sortable: false },
-    { title: "Fecha Plazo de Entrega", align: "start", sortable: false },
-    { title: "Fecha Plazo de Ejecución", align: "start", sortable: false },
-    { title: "Descripción", align: "start", sortable: false },
-    { title: "Categoría", align: "start", sortable: false },
+    { title: "Fecha primera consulta", align: "start", sortable: false },
+    {
+        title: "Meses en demora para consultar",
+        align: "start",
+        sortable: false,
+    },
+    {
+        title: "Mamografía durante el año anterior",
+        align: "start",
+        sortable: false,
+    },
+    { title: "Biopsias mamarias previas", align: "start", sortable: false },
+    {
+        title: "Alguna fue hiperplasia atípica",
+        align: "start",
+        sortable: false,
+    },
     { title: "Más", align: "start", sortable: false },
     { title: "Acción", align: "end", sortable: false },
 ]);
@@ -63,6 +80,15 @@ const options = ref({
     sortOrder: "desc",
     search: "",
 });
+
+const accion_dialog = ref(0);
+const open_dialog = ref(false);
+
+const verArchivos = (item) => {
+    setHistorialPaciente(item, true);
+    accion_dialog.value = 0;
+    open_dialog.value = true;
+};
 
 const loading = ref(true);
 const totalItems = ref(0);
@@ -78,7 +104,9 @@ const loadItems = async ({ page, itemsPerPage, sortBy }) => {
 
     clearInterval(setTimeOutLoadData);
     setTimeOutLoadData = setTimeout(async () => {
-        responseHistorialPacientes.value = await getHistorialPacientesApi(options.value);
+        responseHistorialPacientes.value = await getHistorialPacientesApi(
+            options.value
+        );
         listHistorialPacientes.value = responseHistorialPacientes.value.data;
         totalItems.value = parseInt(responseHistorialPacientes.value.total);
         loading.value = false;
@@ -88,7 +116,9 @@ const recargaHistorialPacientes = async () => {
     loading.value = true;
     listHistorialPacientes.value = [];
     options.value.search = search.value;
-    responseHistorialPacientes.value = await getHistorialPacientesApi(options.value);
+    responseHistorialPacientes.value = await getHistorialPacientesApi(
+        options.value
+    );
     listHistorialPacientes.value = responseHistorialPacientes.value.data;
     totalItems.value = parseInt(responseHistorialPacientes.value.total);
     setTimeout(() => {
@@ -102,8 +132,8 @@ const editarHistorialPaciente = (item) => {
 
 const eliminarHistorialPaciente = (item) => {
     Swal.fire({
-        title: "¿Quierés eliminar este registro?",
-        html: `<strong>${item.nombre}</strong>`,
+        title: "¿Quierés eliminar el registro?",
+        html: `Paciente: <strong>${item.paciente.full_name}</strong>`,
         showCancelButton: true,
         confirmButtonColor: "#B61431",
         confirmButtonText: "Si, eliminar",
@@ -119,9 +149,7 @@ const eliminarHistorialPaciente = (item) => {
         }
     });
 };
-const verUbicación = async (item) => {
-    
-};
+const verUbicación = async (item) => {};
 </script>
 <template>
     <Head title="Historial de Pacientes"></Head>
@@ -142,8 +170,12 @@ const verUbicación = async (item) => {
             <v-col cols="12">
                 <v-card flat>
                     <v-card-title>
-                        <v-row class="bg-cyan-darken-2 d-flex align-center pa-3">
-                            <v-col cols="12" sm="6" md="4"> Historial de Pacientes </v-col>
+                        <v-row
+                            class="bg-cyan-darken-2 d-flex align-center pa-3"
+                        >
+                            <v-col cols="12" sm="6" md="4">
+                                Historial de Pacientes
+                            </v-col>
                             <v-col cols="12" sm="6" md="4" offset-md="4">
                                 <v-text-field
                                     v-model="search"
@@ -187,20 +219,17 @@ const verUbicación = async (item) => {
                                     <tr>
                                         <td>{{ item.id }}</td>
                                         <td>
-                                            {{ item.nombre }}
+                                            {{ item.paciente.full_name }}
                                         </td>
                                         <td>
-                                            {{
-                                                item.gerente_regional.full_name
-                                            }}
+                                            {{ item.fecha_pc_t }}
                                         </td>
                                         <td>
-                                            {{ item.encargado_historial_paciente.full_name }}
+                                            {{ item.meses_dpc }}
                                         </td>
-                                        <td>{{ item.fecha_pent_t }}</td>
-                                        <td>{{ item.fecha_peje_t }}</td>
-                                        <td>{{ item.descripcion }}</td>
-                                        <td>{{ item.categoria.nombre }}</td>
+                                        <td>{{ item.mamografia_aa }}</td>
+                                        <td>{{ item.biopsias_mp }}</td>
+                                        <td>{{ item.hiperplasia_a }}</td>
                                         <td>
                                             <v-btn
                                                 :icon="
@@ -213,24 +242,32 @@ const verUbicación = async (item) => {
                                         </td>
                                         <td class="text-right" width="5%">
                                             <v-btn
-                                                color="primary"
+                                                color="cyan"
                                                 size="small"
                                                 class="pa-1 ma-1"
-                                                @click="verUbicación(item)"
-                                                icon="mdi-map-marker"
+                                                @click="verArchivos(item)"
+                                                icon="mdi-paperclip"
                                             ></v-btn>
                                             <v-btn
                                                 color="yellow"
                                                 size="small"
                                                 class="pa-1 ma-1"
-                                                @click="editarHistorialPaciente(item)"
+                                                @click="
+                                                    editarHistorialPaciente(
+                                                        item
+                                                    )
+                                                "
                                                 icon="mdi-pencil"
                                             ></v-btn>
                                             <v-btn
                                                 color="error"
                                                 size="small"
                                                 class="pa-1 ma-1"
-                                                @click="eliminarHistorialPaciente(item)"
+                                                @click="
+                                                    eliminarHistorialPaciente(
+                                                        item
+                                                    )
+                                                "
                                                 icon="mdi-trash-can"
                                             ></v-btn>
                                         </td>
@@ -241,6 +278,158 @@ const verUbicación = async (item) => {
                                             class="py-5"
                                         >
                                             <v-row>
+                                                <v-col
+                                                    cols="3"
+                                                    class="text-center"
+                                                >
+                                                    <v-row>
+                                                        <v-col
+                                                            cols="12"
+                                                            class="pb-0 text-caption font-weight-black"
+                                                            >Cáncer de mama
+                                                            previo</v-col
+                                                        >
+                                                        <v-col cols="12">{{
+                                                            item.cancer_mp
+                                                        }}</v-col>
+                                                    </v-row>
+                                                </v-col>
+                                                <v-col
+                                                    cols="3"
+                                                    class="text-center"
+                                                >
+                                                    <v-row>
+                                                        <v-col
+                                                            cols="12"
+                                                            class="pb-0 text-caption font-weight-black"
+                                                            >Lado del tumor
+                                                            anterior</v-col
+                                                        >
+                                                        <v-col cols="12">{{
+                                                            item.lado_ta
+                                                        }}</v-col>
+                                                    </v-row>
+                                                </v-col>
+                                                <v-col
+                                                    cols="3"
+                                                    class="text-center"
+                                                >
+                                                    <v-row>
+                                                        <v-col
+                                                            cols="12"
+                                                            class="pb-0 text-caption font-weight-black"
+                                                            >Ha tenido cáncer en
+                                                            algún otro lado del
+                                                            cuerpo</v-col
+                                                        >
+                                                        <v-col cols="12">{{
+                                                            item.cancer_olc
+                                                        }}</v-col>
+                                                    </v-row>
+                                                </v-col>
+                                                <v-col
+                                                    cols="3"
+                                                    class="text-center"
+                                                >
+                                                    <v-row>
+                                                        <v-col
+                                                            cols="12"
+                                                            class="pb-0 text-caption font-weight-black"
+                                                            >Cuántos parientes
+                                                            en primer grado de
+                                                            cáncer de
+                                                            mama</v-col
+                                                        >
+                                                        <v-col cols="12">{{
+                                                            item.parientes_pgcm
+                                                        }}</v-col>
+                                                    </v-row>
+                                                </v-col>
+                                                <v-col
+                                                    cols="3"
+                                                    class="text-center"
+                                                >
+                                                    <v-row>
+                                                        <v-col
+                                                            cols="12"
+                                                            class="pb-0 text-caption font-weight-black"
+                                                            >Otros parientes con
+                                                            cáncer de
+                                                            mama</v-col
+                                                        >
+                                                        <v-col cols="12">{{
+                                                            item.otros_pccm
+                                                        }}</v-col>
+                                                    </v-row>
+                                                </v-col>
+                                                <v-col
+                                                    cols="3"
+                                                    class="text-center"
+                                                >
+                                                    <v-row>
+                                                        <v-col
+                                                            cols="12"
+                                                            class="pb-0 text-caption font-weight-black"
+                                                            >Parientes con
+                                                            cáncer de
+                                                            ovario</v-col
+                                                        >
+                                                        <v-col cols="12">{{
+                                                            item.parientes_cco
+                                                        }}</v-col>
+                                                    </v-row>
+                                                </v-col>
+                                                <v-col
+                                                    cols="3"
+                                                    class="text-center"
+                                                >
+                                                    <v-row>
+                                                        <v-col
+                                                            cols="12"
+                                                            class="pb-0 text-caption font-weight-black"
+                                                            >Parientes con
+                                                            cáncer de
+                                                            colon</v-col
+                                                        >
+                                                        <v-col cols="12">{{
+                                                            item.parientes_ccc
+                                                        }}</v-col>
+                                                    </v-row>
+                                                </v-col>
+                                                <v-col
+                                                    cols="3"
+                                                    class="text-center"
+                                                >
+                                                    <v-row>
+                                                        <v-col
+                                                            cols="12"
+                                                            class="pb-0 text-caption font-weight-black"
+                                                            >Parientes con
+                                                            cáncer de
+                                                            endometrio</v-col
+                                                        >
+                                                        <v-col cols="12">{{
+                                                            item.parientes_cce
+                                                        }}</v-col>
+                                                    </v-row>
+                                                </v-col>
+                                                <v-col
+                                                    cols="3"
+                                                    class="text-center"
+                                                >
+                                                    <v-row>
+                                                        <v-col
+                                                            cols="12"
+                                                            class="pb-0 text-caption font-weight-black"
+                                                            >Parientes con otros
+                                                            tipos de
+                                                            cáncer</v-col
+                                                        >
+                                                        <v-col cols="12">{{
+                                                            item.parientes_cotc
+                                                        }}</v-col>
+                                                    </v-row>
+                                                </v-col>
                                                 <v-col
                                                     cols="3"
                                                     class="text-center"
@@ -273,53 +462,101 @@ const verUbicación = async (item) => {
                                                 </li>
                                                 <li
                                                     class="flex-item"
-                                                    data-label="Nombre de HistorialPaciente"
-                                                >
-                                                    {{ item.nombre }}
-                                                </li>
-                                                <li
-                                                    class="flex-item"
-                                                    data-label="Gerente Regional"
-                                                >
-                                                    {{ item.gerente_regional.full_name }}
-                                                </li>
-                                                <li
-                                                    class="flex-item"
-                                                    data-label="Encargado de HistorialPaciente"
-                                                >
-                                                    {{ item.encargado_historial_paciente.full_name }}
-                                                </li>
-                                                <li
-                                                    class="flex-item"
-                                                    data-label="Fecha Plazo de Entrega"
-                                                >
-                                                    {{ item.fecha_pent_t }}
-                                                </li>
-                                                <li
-                                                    class="flex-item"
-                                                    data-label="Fecha Plazo de Ejecución"
+                                                    data-label="Paciente"
                                                 >
                                                     {{
-                                                        item.fecha_peje_t
+                                                        item.paciente.full_name
                                                     }}
                                                 </li>
                                                 <li
                                                     class="flex-item"
-                                                    data-label="Descripción"
+                                                    data-label="Fecha primera consulta"
                                                 >
-                                                    {{ item.descripcion }}
+                                                    {{ item.fecha_pc_t }}
                                                 </li>
                                                 <li
                                                     class="flex-item"
-                                                    data-label="Trabajo realizado"
+                                                    data-label="Meses en demora para consultar"
                                                 >
-                                                    {{ item.trabajo_realizado }}
+                                                    {{ item.meses_dpc }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Mamografía durante el año anterior"
+                                                >
+                                                    {{ item.mamografia_aa }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Biopsias mamarias previas"
+                                                >
+                                                    {{ item.biopsias_mp }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Alguna fue hiperplasia atípica"
+                                                >
+                                                    {{ item.hiperplasia_a }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Cáncer de mama previo"
+                                                >
+                                                    {{ item.cancer_mp }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Lado del tumor anterior"
+                                                >
+                                                    {{ item.lado_ta }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Ha tenido cáncer en algún otro lado del cuerpo"
+                                                >
+                                                    {{ item.cancer_olc }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Cuántos parientes en primer grado de cáncer de mama"
+                                                >
+                                                    {{ item.parientes_pgcm }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Otros parientes con cáncer de mama"
+                                                >
+                                                    {{ item.otros_pccm }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Parientes con cáncer de ovario"
+                                                >
+                                                    {{ item.parientes_cco }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Parientes con cáncer de colon"
+                                                >
+                                                    {{ item.parientes_ccc }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Parientes con cáncer de endometrio"
+                                                >
+                                                    {{ item.parientes_cce }}
+                                                </li>
+                                                <li
+                                                    class="flex-item"
+                                                    data-label="Parientes con otros tipos de cáncer"
+                                                >
+                                                    {{ item.parientes_cotc }}
                                                 </li>
                                                 <li
                                                     class="flex-item"
                                                     data-label="Fecha de Registro"
                                                 >
-                                                    {{ item.fecha_registro }}
+                                                    {{ item.fecha_registro_t }}
                                                 </li>
                                             </ul>
                                             <v-row>
@@ -328,20 +565,22 @@ const verUbicación = async (item) => {
                                                     class="text-center pa-5"
                                                 >
                                                     <v-btn
-                                                        color="primary"
+                                                        color="cyan"
                                                         size="small"
                                                         class="pa-1 ma-1"
                                                         @click="
-                                                            verUbicación(item)
+                                                            verArchivos(item)
                                                         "
-                                                        icon="mdi-map-marker"
+                                                        icon="mdi-paperclip"
                                                     ></v-btn>
                                                     <v-btn
                                                         color="yellow"
                                                         size="small"
                                                         class="pa-1 ma-1"
                                                         @click="
-                                                            editarHistorialPaciente(item)
+                                                            editarHistorialPaciente(
+                                                                item
+                                                            )
                                                         "
                                                         icon="mdi-pencil"
                                                     ></v-btn>
@@ -350,7 +589,9 @@ const verUbicación = async (item) => {
                                                         size="small"
                                                         class="pa-1 ma-1"
                                                         @click="
-                                                            eliminarHistorialPaciente(item)
+                                                            eliminarHistorialPaciente(
+                                                                item
+                                                            )
                                                         "
                                                         icon="mdi-trash-can"
                                                     ></v-btn>
@@ -365,5 +606,11 @@ const verUbicación = async (item) => {
                 </v-card>
             </v-col>
         </v-row>
+        <VerArchivos
+            :open_dialog="open_dialog"
+            :accion_dialog="accion_dialog"
+            @envio-formulario="recargaHistorialPacientes"
+            @cerrar-dialog="open_dialog = false"
+        ></VerArchivos>
     </v-container>
 </template>

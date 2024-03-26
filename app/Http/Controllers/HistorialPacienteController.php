@@ -6,17 +6,47 @@ use App\Models\HistorialAccion;
 use App\Models\HistorialPaciente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
 class HistorialPacienteController extends Controller
 {
     public $validacion = [
-        "nombre" => "required",
+        "paciente_id" => "required",
+        "fecha_pc" => "required",
+        "meses_dpc" => "required",
+        "mamografia_aa" => "required",
+        "biopsias_mp" => "required",
+        "hiperplasia_a" => "required",
+        "cancer_mp" => "required",
+        "lado_ta" => "required",
+        "cancer_olc" => "required",
+        "parientes_pgcm" => "required",
+        "otros_pccm" => "required",
+        "parientes_cco" => "required",
+        "parientes_ccc" => "required",
+        "parientes_cce" => "required",
+        "parientes_cotc" => "required",
+
     ];
 
     public $mensajes = [
-        "nombre.required" => "Este campo es obligatorio",
+        "paciente_id.required" => "Este campo es obligatorio",
+        "fecha_pc.required" => "Este campo es obligatorio",
+        "meses_dpc.required" => "Este campo es obligatorio",
+        "mamografia_aa.required" => "Este campo es obligatorio",
+        "biopsias_mp.required" => "Este campo es obligatorio",
+        "hiperplasia_a.required" => "Este campo es obligatorio",
+        "cancer_mp.required" => "Este campo es obligatorio",
+        "lado_ta.required" => "Este campo es obligatorio",
+        "cancer_olc.required" => "Este campo es obligatorio",
+        "parientes_pgcm.required" => "Este campo es obligatorio",
+        "otros_pccm.required" => "Este campo es obligatorio",
+        "parientes_cco.required" => "Este campo es obligatorio",
+        "parientes_ccc.required" => "Este campo es obligatorio",
+        "parientes_cce.required" => "Este campo es obligatorio",
+        "parientes_cotc.required" => "Este campo es obligatorio",
     ];
 
     public function index()
@@ -35,7 +65,7 @@ class HistorialPacienteController extends Controller
     public function paginado(Request $request)
     {
         $search = $request->search;
-        $historial_pacientes = HistorialPaciente::select("historial_pacientes.*");
+        $historial_pacientes = HistorialPaciente::with(["paciente", "historial_archivos"])->select("historial_pacientes.*");
 
         if (trim($search) != "") {
             $historial_pacientes->orWhereRaw("CONCAT(nombre,' ', paterno,' ', materno) LIKE ?", ["%$search%"]);
@@ -60,7 +90,18 @@ class HistorialPacienteController extends Controller
         DB::beginTransaction();
         try {
             // crear el HistorialPaciente
-            $nuevo_historial_paciente = HistorialPaciente::create(array_map('mb_strtoupper', $request->except('foto')));
+            $nuevo_historial_paciente = HistorialPaciente::create(array_map('mb_strtoupper', $request->except('historial_archivos')));
+
+            if ($request->file("historial_archivos")) {
+                $historial_archivos = $request->file('historial_archivos');
+                foreach ($historial_archivos as $key => $file) {
+                    $nom_archivo = "Estudio" . $nuevo_historial_paciente->id . "_" . time() . $key . "." . $file->getClientOriginalExtension();
+                    $nuevo_historial_paciente->historial_archivos()->create([
+                        "archivo" => $nom_archivo,
+                    ]);
+                    $file->move(public_path() . '/files/', $nom_archivo);
+                }
+            }
 
             $datos_original = HistorialAccion::getDetalleRegistro($nuevo_historial_paciente, "historial_pacientes");
             HistorialAccion::create([
@@ -98,7 +139,18 @@ class HistorialPacienteController extends Controller
         DB::beginTransaction();
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($historial_paciente, "historial_pacientes");
-            $historial_paciente->update(array_map('mb_strtoupper', $request->except('foto')));
+            $historial_paciente->update(array_map('mb_strtoupper', $request->except('historial_archivos')));
+
+            if ($request->file("historial_archivos")) {
+                $historial_archivos = $request->file('historial_archivos');
+                foreach ($historial_archivos as $key => $file) {
+                    $nom_archivo = "Estudio" . ($historial_paciente->id) . "_" . time() . $key . "." . $file->getClientOriginalExtension();
+                    $historial_paciente->historial_archivos()->create([
+                        "archivo" => $nom_archivo,
+                    ]);
+                    $file->move(public_path() . '/files/', $nom_archivo);
+                }
+            }
 
             $datos_nuevo = HistorialAccion::getDetalleRegistro($historial_paciente, "historial_pacientes");
             HistorialAccion::create([
@@ -127,6 +179,13 @@ class HistorialPacienteController extends Controller
     {
         DB::beginTransaction();
         try {
+            foreach ($historial_paciente->historial_archivos as $item) {
+                if (file_exists(public_path("files/" . $item->archivo))) {
+                    \File::delete(public_path("files/" . $item->archivo));
+                }
+                $item->delete();
+            }
+
             $datos_original = HistorialAccion::getDetalleRegistro($historial_paciente, "historial_pacientes");
             $historial_paciente->delete();
             HistorialAccion::create([

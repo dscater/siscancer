@@ -8,7 +8,11 @@
     >
         <div class="archivos_cargados">
             <div class="archivo" v-for="(item, index) in archivos_existentes">
-                <button type="button"class="btn_quitar" @click.stop="quitarArchivo(index)">
+                <button
+                    type="button"
+                    class="btn_quitar"
+                    @click.stop="quitarArchivo(index)"
+                >
                     <i class="mdi mdi-close"></i>
                 </button>
                 <div class="thumbail">
@@ -53,6 +57,7 @@ export default {
                 // existente en BD
             }
             this.archivos_existentes.splice(index, 1);
+            this.$emit("UpdateFiles", this.archivos_existentes);
         },
         handleDrop(event) {
             event.preventDefault();
@@ -89,7 +94,6 @@ export default {
             this.dragging = false;
         },
         generateThumbnail(file) {
-            console.log(file);
             const reader = new FileReader();
             if (file.type.startsWith("image/")) {
                 reader.onload = (e) => {
@@ -97,16 +101,19 @@ export default {
                         id: 0,
                         name: file.name,
                         url_file: e.target.result,
+                        file: file,
                     });
+                    this.$emit("UpdateFiles", [...this.archivos_existentes]);
                 };
             } else {
                 this.archivos_existentes.push({
                     id: 0,
                     name: file.name,
                     url_file: url_assets + "/imgs/attach.png",
+                    file: file,
                 });
+                this.$emit("UpdateFiles", [...this.archivos_existentes]);
             }
-
             reader.readAsDataURL(file);
         },
     },
@@ -192,6 +199,7 @@ export default {
 }
 
 .archivos_cargados .archivo .btn_quitar:hover {
+    background-color: rgb(250, 210, 210);
     color: red;
 }
 </style>
