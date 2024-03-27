@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\DiagnosticoController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HistorialArchivoController;
 use App\Http\Controllers\HistorialPacienteController;
@@ -108,6 +109,14 @@ Route::middleware('auth')->group(function () {
 
     // HISTORIAL ARCHIVOS
     Route::delete("/historial_archivos/{historial_archivo}", [HistorialArchivoController::class, 'destroy'])->name("historial_archivos.destroy");
+
+    // DIAGNOSTICOS
+    Route::get("/diagnosticos/paginado", [DiagnosticoController::class, 'paginado'])->name("diagnosticos.paginado");
+    Route::get("/diagnosticos/listado", [DiagnosticoController::class, 'listado'])->name("diagnosticos.listado");
+    Route::post("/diagnosticos/procesarImagen", [DiagnosticoController::class, 'procesarImagen'])->name("diagnosticos.procesarImagen");
+    Route::resource("diagnosticos", DiagnosticoController::class)->only(
+        ["index", "create", "store", "edit", "update", "show", "destroy"]
+    );
 });
 
 require __DIR__ . '/auth.php';

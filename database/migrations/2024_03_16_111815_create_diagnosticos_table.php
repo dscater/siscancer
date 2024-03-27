@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('diagnosticos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("paciente_id");
-            $table->string("imagen1", 255);
+            $table->string("imagen1", 255)->nullable();
+            $table->string("imagen2", 255)->nullable();
             $table->string("diagnostico", 255);
             $table->text("descripcion");
             $table->date("fecha_diagnostico");

@@ -143,7 +143,13 @@ const scrollActive = () => {
             >
 
             <v-list-item
-                :class="[route_current == 'diagnosticos.index' ? 'active' : '']"
+                :class="[
+                    route_current == 'diagnosticos.index' ||
+                    route_current == 'diagnosticos.create' ||
+                    route_current == 'diagnosticos.edit'
+                        ? 'active'
+                        : '',
+                ]"
                 v-if="oUser.permisos.includes('diagnosticos.index')"
                 prepend-icon="mdi-image-edit"
                 @click="cambiarUrl(route('diagnosticos.index'))"
@@ -161,7 +167,9 @@ const scrollActive = () => {
 
             <v-list-item
                 :class="[
-                    route_current == 'historial_pacientes.index'
+                    route_current == 'historial_pacientes.index' ||
+                    route_current == 'historial_pacientes.create' ||
+                    route_current == 'historial_pacientes.edit'
                         ? 'active'
                         : '',
                 ]"

@@ -17,6 +17,20 @@ html {
     overflow-y: overlay;
 }
 
+.btn-wrap-text {
+    padding-left: 2px;
+    padding-right: 2px;
+    display: block;
+    width: 100%;
+}
+
+.btn-wrap-text .v-btn__content p {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    text-align: center;
+}
+
 .ubicacion,
 iframe {
     width: 100%;

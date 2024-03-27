@@ -69,6 +69,32 @@ class PacienteController extends Controller
             }
         }
 
+        if ($request->sin_diagnostico) {
+            if ($request->id) {
+                $pacientes = $pacientes->whereNotExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('diagnosticos')
+                        ->whereRaw('diagnosticos.paciente_id = pacientes.id');
+                })->orWhere(function ($subquery) use ($request) {
+                    $subquery->whereIn('pacientes.id', [$request->id]);
+                });
+            } else {
+                $pacientes = $pacientes->whereNotExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('diagnosticos')
+                        ->whereRaw('diagnosticos.paciente_id = pacientes.id');
+                });
+            }
+        }
+
+        if ($request->con_historial) {
+            $pacientes = $pacientes->whereExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('historial_pacientes')
+                    ->whereRaw('historial_pacientes.paciente_id = pacientes.id');
+            });
+        }
+
         if ($request->order) {
             $pacientes->orderBy("id", $request->order);
         }
