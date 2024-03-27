@@ -65,11 +65,12 @@ class HistorialPacienteController extends Controller
     public function paginado(Request $request)
     {
         $search = $request->search;
-        $historial_pacientes = HistorialPaciente::with(["paciente", "historial_archivos"])->select("historial_pacientes.*");
+        $historial_pacientes = HistorialPaciente::with(["paciente", "historial_archivos"])->select("historial_pacientes.*")
+            ->join("pacientes", "pacientes.id", "=", "historial_pacientes.paciente_id");
 
         if (trim($search) != "") {
-            $historial_pacientes->orWhereRaw("CONCAT(nombre,' ', paterno,' ', materno) LIKE ?", ["%$search%"]);
-            $historial_pacientes->orWhere("ci", "LIKE", "%$search%");
+            $historial_pacientes->orWhereRaw("CONCAT(pacientes.nombre,' ', pacientes.paterno,' ', pacientes.materno) LIKE ?", ["%$search%"]);
+            $historial_pacientes->orWhere("pacientes.ci", "LIKE", "%$search%");
         }
 
         $historial_pacientes = $historial_pacientes->paginate($request->itemsPerPage);

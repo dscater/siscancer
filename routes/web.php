@@ -3,6 +3,8 @@
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DiagnosticoController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\EntrenamientoController;
+use App\Http\Controllers\EntrenamientoImagenController;
 use App\Http\Controllers\HistorialArchivoController;
 use App\Http\Controllers\HistorialPacienteController;
 use App\Http\Controllers\InstitucionController;
@@ -12,6 +14,7 @@ use App\Http\Controllers\ObraController;
 use App\Http\Controllers\OperarioController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Foundation\Application;
@@ -76,6 +79,7 @@ Route::middleware('auth')->group(function () {
 
     // USUARIOS
     Route::put("/usuarios/password/{user}", [UsuarioController::class, 'actualizaPassword'])->name("usuarios.password");
+    Route::put("/usuarios/password/doctor/{user}", [UsuarioController::class, 'actualizaPasswordDoctor'])->name("usuarios.actualizaPasswordDoctor");
     Route::get("/usuarios/paginado", [UsuarioController::class, 'paginado'])->name("usuarios.paginado");
     Route::get("/usuarios/listado", [UsuarioController::class, 'listado'])->name("usuarios.listado");
     Route::get("/usuarios/listado/byTipo", [UsuarioController::class, 'byTipo'])->name("usuarios.byTipo");
@@ -117,6 +121,31 @@ Route::middleware('auth')->group(function () {
     Route::resource("diagnosticos", DiagnosticoController::class)->only(
         ["index", "create", "store", "edit", "update", "show", "destroy"]
     );
+
+    // ENTRENAMIENTO IMAGENES
+    Route::delete("/entrenamiento_imagens/{entrenamiento_imagen}", [EntrenamientoImagenController::class, 'destroy'])->name("entrenamiento_imagens.destroy");
+
+    // ENTRENAMIENTOS
+    Route::get("/entrenamientos/getTiposDiagnosticos", [EntrenamientoController::class, 'getTiposDiagnosticos'])->name("entrenamientos.getTiposDiagnosticos");
+    Route::get("/entrenamientos/paginado", [EntrenamientoController::class, 'paginado'])->name("entrenamientos.paginado");
+    Route::get("/entrenamientos/listado", [EntrenamientoController::class, 'listado'])->name("entrenamientos.listado");
+    Route::post("/entrenamientos/procesarImagen", [EntrenamientoController::class, 'procesarImagen'])->name("entrenamientos.procesarImagen");
+    Route::resource("entrenamientos", EntrenamientoController::class)->only(
+        ["index", "create", "store", "edit", "update", "show", "destroy"]
+    );
+
+    // REPORTES
+    Route::get('reportes/usuarios', [ReporteController::class, 'usuarios'])->name("reportes.usuarios");
+    Route::get('reportes/r_usuarios', [ReporteController::class, 'r_usuarios'])->name("reportes.r_usuarios");
+    
+    Route::get('reportes/pacientes', [ReporteController::class, 'pacientes'])->name("reportes.pacientes");
+    Route::get('reportes/r_pacientes', [ReporteController::class, 'r_pacientes'])->name("reportes.r_pacientes");
+    
+    Route::get('reportes/historial_pacientes', [ReporteController::class, 'historial_pacientes'])->name("reportes.historial_pacientes");
+    Route::get('reportes/r_historial_pacientes', [ReporteController::class, 'r_historial_pacientes'])->name("reportes.r_historial_pacientes");
+    
+    Route::get('reportes/diagnosticos', [ReporteController::class, 'diagnosticos'])->name("reportes.diagnosticos");
+    Route::get('reportes/r_diagnosticos', [ReporteController::class, 'r_diagnosticos'])->name("reportes.r_diagnosticos");
 });
 
 require __DIR__ . '/auth.php';

@@ -62,4 +62,14 @@ class Paciente extends Model
         $iniciales = substr($this->nombre, 0, 1) . substr($this->paterno, 0, 1);
         return $iniciales;
     }
+
+    public function historial_paciente()
+    {
+        return $this->hasOne(HistorialPaciente::class, 'paciente_id');
+    }
+
+    public function diagnostico()
+    {
+        return $this->hasOne(Diagnostico::class, 'paciente_id');
+    }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 27-03-2024 a las 17:27:35
+-- Tiempo de generación: 27-03-2024 a las 23:07:39
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -65,6 +65,13 @@ CREATE TABLE `doctors` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `doctors`
+--
+
+INSERT INTO `doctors` (`id`, `user_id`, `fecha_nac`, `estado_civil`, `sexo`, `especialidad`, `fono2`, `created_at`, `updated_at`) VALUES
+(1, 3, '1995-01-01', 'SOLTERO', 'HOMBRE', '', '', '2024-03-27 20:59:28', '2024-03-27 20:59:28');
+
 -- --------------------------------------------------------
 
 --
@@ -79,6 +86,13 @@ CREATE TABLE `entrenamientos` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `entrenamientos`
+--
+
+INSERT INTO `entrenamientos` (`id`, `tipo`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 'NO TIENE CANCER', '2024-03-27', '2024-03-27 20:52:39', '2024-03-27 20:52:39');
+
 -- --------------------------------------------------------
 
 --
@@ -92,6 +106,41 @@ CREATE TABLE `entrenamiento_imagens` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `entrenamiento_imagens`
+--
+
+INSERT INTO `entrenamiento_imagens` (`id`, `entrenamiento_id`, `imagen`, `created_at`, `updated_at`) VALUES
+(1, 1, 'imagen11711572759_0.jpg', '2024-03-27 20:52:39', '2024-03-27 20:52:39'),
+(2, 1, 'imagen11711572761_1.jpg', '2024-03-27 20:52:41', '2024-03-27 20:52:41'),
+(3, 1, 'imagen11711572763_2.jpg', '2024-03-27 20:52:43', '2024-03-27 20:52:43'),
+(4, 1, 'imagen11711572765_3.jpg', '2024-03-27 20:52:45', '2024-03-27 20:52:45'),
+(5, 1, 'imagen11711572767_4.jpg', '2024-03-27 20:52:47', '2024-03-27 20:52:47'),
+(6, 1, 'imagen11711572769_5.jpg', '2024-03-27 20:52:49', '2024-03-27 20:52:49'),
+(7, 1, 'imagen11711572771_6.jpg', '2024-03-27 20:52:51', '2024-03-27 20:52:51'),
+(8, 1, 'imagen11711572774_7.jpg', '2024-03-27 20:52:54', '2024-03-27 20:52:54'),
+(9, 1, 'imagen11711572776_8.jpg', '2024-03-27 20:52:56', '2024-03-27 20:52:56'),
+(10, 1, 'imagen11711572778_9.jpg', '2024-03-27 20:52:58', '2024-03-27 20:52:58'),
+(11, 1, 'imagen11711572780_10.jpg', '2024-03-27 20:53:00', '2024-03-27 20:53:00'),
+(12, 1, 'imagen11711572782_11.jpg', '2024-03-27 20:53:02', '2024-03-27 20:53:02'),
+(13, 1, 'imagen11711572784_12.jpg', '2024-03-27 20:53:04', '2024-03-27 20:53:04'),
+(14, 1, 'imagen11711572786_13.jpg', '2024-03-27 20:53:06', '2024-03-27 20:53:06'),
+(15, 1, 'imagen11711572788_14.jpg', '2024-03-27 20:53:08', '2024-03-27 20:53:08'),
+(16, 1, 'imagen11711572790_15.jpg', '2024-03-27 20:53:10', '2024-03-27 20:53:10'),
+(17, 1, 'imagen11711572792_16.jpg', '2024-03-27 20:53:12', '2024-03-27 20:53:12'),
+(18, 1, 'imagen11711572794_17.jpg', '2024-03-27 20:53:14', '2024-03-27 20:53:14'),
+(19, 1, 'imagen11711572796_18.jpg', '2024-03-27 20:53:16', '2024-03-27 20:53:16'),
+(20, 1, 'imagen11711572798_19.jpg', '2024-03-27 20:53:18', '2024-03-27 20:53:18'),
+(21, 1, 'imagen11711572904_20.jpg', '2024-03-27 20:55:04', '2024-03-27 20:55:04'),
+(22, 1, 'imagen11711572905_21.jpg', '2024-03-27 20:55:05', '2024-03-27 20:55:05'),
+(23, 1, 'imagen11711572906_22.jpg', '2024-03-27 20:55:06', '2024-03-27 20:55:06'),
+(24, 1, 'imagen11711572974_23.jpg', '2024-03-27 20:56:14', '2024-03-27 20:56:14'),
+(25, 1, 'imagen11711572975_24.jpg', '2024-03-27 20:56:15', '2024-03-27 20:56:15'),
+(26, 1, 'imagen11711572976_25.jpg', '2024-03-27 20:56:16', '2024-03-27 20:56:16'),
+(27, 1, 'imagen11711572977_26.jpg', '2024-03-27 20:56:17', '2024-03-27 20:56:17'),
+(28, 1, 'imagen11711572978_27.jpg', '2024-03-27 20:56:18', '2024-03-27 20:56:18'),
+(29, 1, 'imagen11711572979_28.jpg', '2024-03-27 20:56:19', '2024-03-27 20:56:19');
 
 -- --------------------------------------------------------
 
@@ -162,7 +211,36 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (42, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN DIAGNOSTICO POR IMAGEN', 'id: 4<br/>paciente_id: 1<br/>imagen1: Diagnostico4_17115599741.jpg<br/>imagen2: Diagnostico4_17115599742.jpg<br/>diagnostico: CANCER DE MAMA MALIGNO<br/>descripcion: DESCRIPCION DIAGNOSTICO #1<br/>fecha_diagnostico: 2024-03-27<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 13:19:34<br/>updated_at: 2024-03-27 13:19:34<br/>', NULL, 'DIAGNOSTICO POR IMAGENES', '2024-03-27', '13:19:34', '2024-03-27 17:19:34', '2024-03-27 17:19:34'),
 (43, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN DIAGNOSTICO POR IMAGEN', 'id: 4<br/>paciente_id: 1<br/>imagen1: Diagnostico4_17115599741.jpg<br/>imagen2: Diagnostico4_17115599742.jpg<br/>diagnostico: CANCER DE MAMA MALIGNO<br/>descripcion: DESCRIPCION DIAGNOSTICO #1<br/>fecha_diagnostico: 2024-03-27<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 13:19:34<br/>updated_at: 2024-03-27 13:19:34<br/>', NULL, 'DIAGNOSTICO POR IMAGENES', '2024-03-27', '13:19:39', '2024-03-27 17:19:39', '2024-03-27 17:19:39'),
 (44, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN DIAGNOSTICO POR IMAGEN', 'id: 1<br/>paciente_id: 1<br/>imagen1: Diagnostico1_17115600081.jpg<br/>imagen2: Diagnostico1_17115600082.jpg<br/>diagnostico: CANCER DE MAMA BENIGNO<br/>descripcion: DESCRIPCION DIAGNOSTICO #1<br/>fecha_diagnostico: 2024-03-27<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 13:20:08<br/>updated_at: 2024-03-27 13:20:08<br/>', NULL, 'DIAGNOSTICO POR IMAGENES', '2024-03-27', '13:20:08', '2024-03-27 17:20:08', '2024-03-27 17:20:08'),
-(45, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN DIAGNOSTICO POR IMAGEN', 'id: 1<br/>paciente_id: 1<br/>imagen1: Diagnostico1_17115600081.jpg<br/>imagen2: Diagnostico1_17115600082.jpg<br/>diagnostico: CANCER DE MAMA BENIGNO<br/>descripcion: DESCRIPCION DIAGNOSTICO #1<br/>fecha_diagnostico: 2024-03-27<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 13:20:08<br/>updated_at: 2024-03-27 13:20:08<br/>', 'id: 1<br/>paciente_id: 1<br/>imagen1: Diagnostico1_17115603491.jpg<br/>imagen2: Diagnostico1_17115603492.jpg<br/>diagnostico: CANCER DE MAMA BENIGNO<br/>descripcion: DESCRIPCION DIAGNOSTICO #1<br/>fecha_diagnostico: 2024-03-27<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 13:20:08<br/>updated_at: 2024-03-27 13:25:49<br/>', 'DIAGNOSTICO POR IMAGENES', '2024-03-27', '13:25:49', '2024-03-27 17:25:49', '2024-03-27 17:25:49');
+(45, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN DIAGNOSTICO POR IMAGEN', 'id: 1<br/>paciente_id: 1<br/>imagen1: Diagnostico1_17115600081.jpg<br/>imagen2: Diagnostico1_17115600082.jpg<br/>diagnostico: CANCER DE MAMA BENIGNO<br/>descripcion: DESCRIPCION DIAGNOSTICO #1<br/>fecha_diagnostico: 2024-03-27<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 13:20:08<br/>updated_at: 2024-03-27 13:20:08<br/>', 'id: 1<br/>paciente_id: 1<br/>imagen1: Diagnostico1_17115603491.jpg<br/>imagen2: Diagnostico1_17115603492.jpg<br/>diagnostico: CANCER DE MAMA BENIGNO<br/>descripcion: DESCRIPCION DIAGNOSTICO #1<br/>fecha_diagnostico: 2024-03-27<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 13:20:08<br/>updated_at: 2024-03-27 13:25:49<br/>', 'DIAGNOSTICO POR IMAGENES', '2024-03-27', '13:25:49', '2024-03-27 17:25:49', '2024-03-27 17:25:49'),
+(46, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ENTRENAMIENTO DE IMAGEN', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:28:55', '2024-03-27 20:28:55', '2024-03-27 20:28:55'),
+(47, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:40:09', '2024-03-27 20:40:09', '2024-03-27 20:40:09'),
+(48, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:41:04', '2024-03-27 20:41:04', '2024-03-27 20:41:04'),
+(49, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:43:13', '2024-03-27 20:43:13', '2024-03-27 20:43:13'),
+(50, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:43:32', '2024-03-27 20:43:32', '2024-03-27 20:43:32'),
+(51, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:44:25', '2024-03-27 20:44:25', '2024-03-27 20:44:25'),
+(52, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 2<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:28:55<br/>updated_at: 2024-03-27 16:28:55<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:45:13', '2024-03-27 20:45:13', '2024-03-27 20:45:13'),
+(53, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ENTRENAMIENTO DE IMAGEN', 'id: 3<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:45:31<br/>updated_at: 2024-03-27 16:45:31<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:46:11', '2024-03-27 20:46:11', '2024-03-27 20:46:11'),
+(54, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 3<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:45:31<br/>updated_at: 2024-03-27 16:45:31<br/>', 'id: 3<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:45:31<br/>updated_at: 2024-03-27 16:45:31<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:47:20', '2024-03-27 20:47:20', '2024-03-27 20:47:20'),
+(55, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 3<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:45:31<br/>updated_at: 2024-03-27 16:45:31<br/>', 'id: 3<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:45:31<br/>updated_at: 2024-03-27 16:45:31<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:47:57', '2024-03-27 20:47:57', '2024-03-27 20:47:57'),
+(56, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 3<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:45:31<br/>updated_at: 2024-03-27 16:45:31<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:48:25', '2024-03-27 20:48:25', '2024-03-27 20:48:25'),
+(57, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ENTRENAMIENTO DE IMAGEN', 'id: 4<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:48:45<br/>updated_at: 2024-03-27 16:48:45<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:48:59', '2024-03-27 20:48:59', '2024-03-27 20:48:59'),
+(58, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 4<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:48:45<br/>updated_at: 2024-03-27 16:48:45<br/>', 'id: 4<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:48:45<br/>updated_at: 2024-03-27 16:48:45<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:49:21', '2024-03-27 20:49:21', '2024-03-27 20:49:21'),
+(59, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 4<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:48:45<br/>updated_at: 2024-03-27 16:48:45<br/>', 'id: 4<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:48:45<br/>updated_at: 2024-03-27 16:48:45<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:51:00', '2024-03-27 20:51:00', '2024-03-27 20:51:00'),
+(60, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 4<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:48:45<br/>updated_at: 2024-03-27 16:48:45<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:51:25', '2024-03-27 20:51:25', '2024-03-27 20:51:25'),
+(61, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ENTRENAMIENTO DE IMAGEN', 'id: 5<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:51:35<br/>updated_at: 2024-03-27 16:51:35<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:51:43', '2024-03-27 20:51:43', '2024-03-27 20:51:43'),
+(62, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 5<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:51:35<br/>updated_at: 2024-03-27 16:51:35<br/>', 'id: 5<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:51:35<br/>updated_at: 2024-03-27 16:51:35<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:51:55', '2024-03-27 20:51:55', '2024-03-27 20:51:55'),
+(63, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 5<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:51:35<br/>updated_at: 2024-03-27 16:51:35<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:52:00', '2024-03-27 20:52:00', '2024-03-27 20:52:00'),
+(64, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN ENTRENAMIENTO DE IMAGEN', 'id: 1<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:52:39<br/>updated_at: 2024-03-27 16:52:39<br/>', NULL, 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:53:20', '2024-03-27 20:53:20', '2024-03-27 20:53:20'),
+(65, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 1<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:52:39<br/>updated_at: 2024-03-27 16:52:39<br/>', 'id: 1<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:52:39<br/>updated_at: 2024-03-27 16:52:39<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:55:30', '2024-03-27 20:55:30', '2024-03-27 20:55:30'),
+(66, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 1<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:52:39<br/>updated_at: 2024-03-27 16:52:39<br/>', 'id: 1<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:52:39<br/>updated_at: 2024-03-27 16:52:39<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:56:52', '2024-03-27 20:56:52', '2024-03-27 20:56:52'),
+(67, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 1<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:52:39<br/>updated_at: 2024-03-27 16:52:39<br/>', 'id: 1<br/>tipo: NO TIENE CANCER<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 16:52:39<br/>updated_at: 2024-03-27 16:52:39<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-03-27', '16:57:53', '2024-03-27 20:57:53', '2024-03-27 20:57:53'),
+(68, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN HISTORIAL DE PACIENTE', 'id: 1<br/>paciente_id: 1<br/>fecha_pc: 2022-01-01<br/>meses_dpc: 5<br/>mamografia_aa: NO<br/>biopsias_mp: NINGUNA<br/>hiperplasia_a: SI<br/>cancer_mp: NO<br/>lado_ta: NO CORRESPONDE<br/>cancer_olc: NO<br/>parientes_pgcm: NINGUNO<br/>otros_pccm: NINGUNO<br/>parientes_cco: SI<br/>parientes_ccc: SI<br/>parientes_cce: SI<br/>parientes_cotc: SI<br/>fecha_registro: 2024-03-26<br/>created_at: 2024-03-26 16:10:53<br/>updated_at: 2024-03-26 16:54:19<br/>', 'id: 1<br/>paciente_id: 1<br/>fecha_pc: 2022-01-01<br/>meses_dpc: 5<br/>mamografia_aa: NO<br/>biopsias_mp: NINGUNA<br/>hiperplasia_a: SI<br/>cancer_mp: NO<br/>lado_ta: NO CORRESPONDE<br/>cancer_olc: NO<br/>parientes_pgcm: NINGUNO<br/>otros_pccm: NINGUNO<br/>parientes_cco: SI<br/>parientes_ccc: SI<br/>parientes_cce: SI<br/>parientes_cotc: SI<br/>fecha_registro: 2024-03-26<br/>created_at: 2024-03-26 16:10:53<br/>updated_at: 2024-03-26 16:54:19<br/>', 'HISTORIAL DE PACIENTES', '2024-03-27', '16:58:50', '2024-03-27 20:58:50', '2024-03-27 20:58:50'),
+(69, 1, 'CREACIÓN', 'EL DOCTOR admin REGISTRO UN DOCTOR', 'id: 1<br/>user_id: 3<br/>fecha_nac: 1995-01-01<br/>estado_civil: SOLTERO<br/>sexo: HOMBRE<br/>especialidad: <br/>fono2: <br/>created_at: 2024-03-27 16:59:28<br/>updated_at: 2024-03-27 16:59:28<br/>', NULL, 'DOCTORES', '2024-03-27', '16:59:28', '2024-03-27 20:59:28', '2024-03-27 20:59:28'),
+(70, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN LA CONTRASEÑA DE UN USUARIO', 'id: 3<br/>usuario: CMARTINEZ<br/>password: $2y$12$n8lsWC.3qH/Qd5W.vkPgReH5qEHjYbn093RY5p0pLATAuK7HkMSwu<br/>nombre: CARLOS<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 2222<br/>ci_exp: LP<br/>dir: <br/>email: <br/>fono: 777777<br/>tipo: DOCTOR<br/>foto: <br/>acceso: 1<br/>fecha_registro: 2024-03-27 00:00:00<br/>created_at: 2024-03-27 16:59:28<br/>updated_at: 2024-03-27 16:59:28<br/>', 'id: 3<br/>usuario: CMARTINEZ<br/>password: $2y$12$.pyrJ8pQnQm9MqQa56Gyk.XBe8ud/5y1RhXm.J3ioUvAXw8S8z4pG<br/>nombre: CARLOS<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 2222<br/>ci_exp: LP<br/>dir: <br/>email: <br/>fono: 777777<br/>tipo: DOCTOR<br/>foto: <br/>acceso: 1<br/>fecha_registro: 2024-03-27 00:00:00<br/>created_at: 2024-03-27 16:59:28<br/>updated_at: 2024-03-27 17:06:59<br/>', 'USUARIOS', '2024-03-27', '17:06:59', '2024-03-27 21:06:59', '2024-03-27 21:06:59'),
+(71, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN LA CONTRASEÑA DE UN USUARIO', 'id: 3<br/>usuario: CMARTINEZ<br/>password: $2y$12$.pyrJ8pQnQm9MqQa56Gyk.XBe8ud/5y1RhXm.J3ioUvAXw8S8z4pG<br/>nombre: CARLOS<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 2222<br/>ci_exp: LP<br/>dir: <br/>email: <br/>fono: 777777<br/>tipo: DOCTOR<br/>foto: <br/>acceso: 1<br/>fecha_registro: 2024-03-27 00:00:00<br/>created_at: 2024-03-27 16:59:28<br/>updated_at: 2024-03-27 17:06:59<br/>', 'id: 3<br/>usuario: CMARTINEZ<br/>password: $2y$12$C43xtaG39rlEPVUis9r20.N4zw6ruDp.9CXF4CLowRpTn5gAZCBvW<br/>nombre: CARLOS<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 2222<br/>ci_exp: LP<br/>dir: <br/>email: <br/>fono: 777777<br/>tipo: DOCTOR<br/>foto: <br/>acceso: 1<br/>fecha_registro: 2024-03-27 00:00:00<br/>created_at: 2024-03-27 16:59:28<br/>updated_at: 2024-03-27 17:07:47<br/>', 'USUARIOS', '2024-03-27', '17:07:47', '2024-03-27 21:07:47', '2024-03-27 21:07:47'),
+(72, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN LA CONTRASEÑA DE UN USUARIO', 'id: 3<br/>usuario: CMARTINEZ<br/>password: $2y$12$C43xtaG39rlEPVUis9r20.N4zw6ruDp.9CXF4CLowRpTn5gAZCBvW<br/>nombre: CARLOS<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 2222<br/>ci_exp: LP<br/>dir: <br/>email: <br/>fono: 777777<br/>tipo: DOCTOR<br/>foto: <br/>acceso: 1<br/>fecha_registro: 2024-03-27 00:00:00<br/>created_at: 2024-03-27 16:59:28<br/>updated_at: 2024-03-27 17:07:47<br/>', 'id: 3<br/>usuario: CMARTINEZ<br/>password: $2y$12$R/XCXTeKaRLFBWP0c15EQ.c0tu7y7wVTOkN9ZGJh.9r.xu3XnSNgi<br/>nombre: CARLOS<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 2222<br/>ci_exp: LP<br/>dir: <br/>email: <br/>fono: 777777<br/>tipo: DOCTOR<br/>foto: <br/>acceso: 1<br/>fecha_registro: 2024-03-27 00:00:00<br/>created_at: 2024-03-27 16:59:28<br/>updated_at: 2024-03-27 17:09:24<br/>', 'USUARIOS', '2024-03-27', '17:09:24', '2024-03-27 21:09:24', '2024-03-27 21:09:24'),
+(73, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN LA CONTRASEÑA DE UN USUARIO', 'id: 3<br/>usuario: CMARTINEZ<br/>password: $2y$12$R/XCXTeKaRLFBWP0c15EQ.c0tu7y7wVTOkN9ZGJh.9r.xu3XnSNgi<br/>nombre: CARLOS<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 2222<br/>ci_exp: LP<br/>dir: <br/>email: <br/>fono: 777777<br/>tipo: DOCTOR<br/>foto: <br/>acceso: 1<br/>fecha_registro: 2024-03-27 00:00:00<br/>created_at: 2024-03-27 16:59:28<br/>updated_at: 2024-03-27 17:09:24<br/>', 'id: 3<br/>usuario: CMARTINEZ<br/>password: $2y$12$L5dA8WpwrPZOxkkxdL33k.m9gDO5aZQr1tzuRmqXA7/9HIqi84PTC<br/>nombre: CARLOS<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 2222<br/>ci_exp: LP<br/>dir: <br/>email: <br/>fono: 777777<br/>tipo: DOCTOR<br/>foto: <br/>acceso: 1<br/>fecha_registro: 2024-03-27 00:00:00<br/>created_at: 2024-03-27 16:59:28<br/>updated_at: 2024-03-27 17:09:28<br/>', 'USUARIOS', '2024-03-27', '17:09:28', '2024-03-27 21:09:28', '2024-03-27 21:09:28'),
+(74, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PACIENTE', 'id: 1<br/>nombre: MARIA<br/>paterno: MAMANI<br/>materno: MAMANI<br/>ci: 1234<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: MUJER<br/>estado_civil: CASADO<br/>ocupacion: OCUPACION #1<br/>correo: <br/>cel: 7777777<br/>cel_familiar: 66666666<br/>dir_trabajo: <br/>dir_domicilio: <br/>foto: 1711125343_.png<br/>fecha_registro: 2024-03-22<br/>created_at: 2024-03-22 12:35:43<br/>updated_at: 2024-03-22 12:35:43<br/>', 'id: 1<br/>nombre: MARIA<br/>paterno: MAMANI<br/>materno: MAMANI<br/>ci: 1234<br/>ci_exp: LP<br/>fecha_nac: 2000-01-01<br/>sexo: MUJER<br/>estado_civil: CASADO<br/>ocupacion: OCUPACION #1<br/>correo: MARIA@GMAIL.COM<br/>cel: 7777777<br/>cel_familiar: 66666666<br/>dir_trabajo: DIR TRABAJO<br/>dir_domicilio: DIR DOMICILIO<br/>foto: 1711125343_.png<br/>fecha_registro: 2024-03-22<br/>created_at: 2024-03-22 12:35:43<br/>updated_at: 2024-03-27 18:18:39<br/>', 'PACIENTES', '2024-03-27', '18:18:39', '2024-03-27 22:18:39', '2024-03-27 22:18:39');
 
 -- --------------------------------------------------------
 
@@ -177,6 +255,13 @@ CREATE TABLE `historial_archivos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `historial_archivos`
+--
+
+INSERT INTO `historial_archivos` (`id`, `historial_paciente_id`, `archivo`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Estudio1_17115731300.pdf', '2024-03-27 20:58:50', '2024-03-27 20:58:50');
 
 -- --------------------------------------------------------
 
@@ -305,7 +390,7 @@ CREATE TABLE `pacientes` (
 --
 
 INSERT INTO `pacientes` (`id`, `nombre`, `paterno`, `materno`, `ci`, `ci_exp`, `fecha_nac`, `sexo`, `estado_civil`, `ocupacion`, `correo`, `cel`, `cel_familiar`, `dir_trabajo`, `dir_domicilio`, `foto`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 'MARIA', 'MAMANI', 'MAMANI', '1234', 'LP', '2000-01-01', 'MUJER', 'CASADO', 'OCUPACION #1', '', '7777777', '66666666', '', '', '1711125343_.png', '2024-03-22', '2024-03-22 16:35:43', '2024-03-22 16:35:43'),
+(1, 'MARIA', 'MAMANI', 'MAMANI', '1234', 'LP', '2000-01-01', 'MUJER', 'CASADO', 'OCUPACION #1', 'MARIA@GMAIL.COM', '7777777', '66666666', 'DIR TRABAJO', 'DIR DOMICILIO', '1711125343_.png', '2024-03-22', '2024-03-22 16:35:43', '2024-03-27 22:18:39'),
 (2, 'INGRID', 'CARVAJAL', 'GONZALES', '23232', 'LP', '2000-01-01', 'MUJER', 'SOLTERO', 'OCUPACION #2', '', '777777', '6666666', '', '', NULL, '2024-03-27', '2024-03-27 14:25:04', '2024-03-27 14:25:04');
 
 -- --------------------------------------------------------
@@ -359,7 +444,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `usuario`, `password`, `nombre`, `paterno`, `materno`, `ci`, `ci_exp`, `dir`, `email`, `fono`, `tipo`, `foto`, `acceso`, `fecha_registro`, `created_at`, `updated_at`) VALUES
 (1, 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 'admin', NULL, NULL, '0', '', '', 'admin@gmail.com', '', 'SUPER USUARIO', NULL, 1, '2024-01-31', NULL, '2024-02-02 18:13:58'),
-(2, 'JPERES', '$2y$12$ymKPkYJyo6Trh513eKXW7uReuTy3ufzH6tUNE3n3IyUf3GvAcLoDm', 'JUAN', 'PERES', 'MAMANI', '1111', 'LP', 'LOS OLIVOS', '', '77777777', 'SUPER USUARIO', NULL, 1, '2024-03-16', '2024-03-16 15:02:24', '2024-03-16 15:03:21');
+(2, 'JPERES', '$2y$12$ymKPkYJyo6Trh513eKXW7uReuTy3ufzH6tUNE3n3IyUf3GvAcLoDm', 'JUAN', 'PERES', 'MAMANI', '1111', 'LP', 'LOS OLIVOS', '', '77777777', 'SUPER USUARIO', NULL, 1, '2024-03-16', '2024-03-16 15:02:24', '2024-03-16 15:03:21'),
+(3, 'CMARTINEZ', '$2y$12$L5dA8WpwrPZOxkkxdL33k.m9gDO5aZQr1tzuRmqXA7/9HIqi84PTC', 'CARLOS', 'MARTINEZ', 'MAMANI', '2222', 'LP', '', '', '777777', 'DOCTOR', NULL, 1, '2024-03-27', '2024-03-27 20:59:28', '2024-03-27 21:09:28');
 
 --
 -- Índices para tablas volcadas
@@ -458,31 +544,31 @@ ALTER TABLE `diagnosticos`
 -- AUTO_INCREMENT de la tabla `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `entrenamientos`
 --
 ALTER TABLE `entrenamientos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `entrenamiento_imagens`
 --
 ALTER TABLE `entrenamiento_imagens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_archivos`
 --
 ALTER TABLE `historial_archivos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_pacientes`
@@ -518,7 +604,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas

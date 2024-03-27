@@ -23,7 +23,7 @@ const tituloDialog = computed(() => {
         : `Editar Historial de Paciente`;
 });
 
-let disabled = ref(false);
+const disabled = ref(false);
 
 const enviarFormulario = () => {
     let url =
@@ -102,6 +102,7 @@ onMounted(() => {
                     @click="cambiarUrl(route('historial_pacientes.index'))"
                 ></v-btn>
                 <v-btn
+                    :disabled="disabled"
                     icon="mdi-content-save"
                     color="cyan-darken-2"
                     @click="enviarFormulario"
@@ -116,7 +117,7 @@ onMounted(() => {
                     Volver</v-btn
                 >
                 <v-btn
-                    :disbled="disabled"
+                    :disabled="disabled"
                     :prepend-icon="
                         oHistorialPaciente.id != 0
                             ? 'mdi-sync'

@@ -19,9 +19,11 @@ import BreadBrums from "@/Components/BreadBrums.vue";
 import { useApp } from "@/composables/useApp";
 import { Head } from "@inertiajs/vue3";
 import { useDoctors } from "@/composables/doctors/useDoctors";
+import { useUsuarios } from "@/composables/usuarios/useUsuarios";
 import { ref, onMounted } from "vue";
 import { useMenu } from "@/composables/useMenu";
 import Formulario from "./Formulario.vue";
+import FormPassword from "./FormPassword.vue";
 const { mobile, identificaDispositivo } = useMenu();
 const { setLoading } = useApp();
 onMounted(() => {
@@ -32,6 +34,8 @@ onMounted(() => {
 });
 
 const { getDoctorsApi, setDoctor, limpiarDoctor, deleteDoctor } = useDoctors();
+
+const { setUsuario } = useUsuarios();
 const responseDoctors = ref([]);
 const listDoctors = ref([]);
 const itemsPerPage = ref(5);
@@ -97,6 +101,8 @@ const recargaDoctors = async () => {
 };
 const accion_dialog = ref(0);
 const open_dialog = ref(false);
+const accion_dialog_pass = ref(0);
+const open_dialog_pass = ref(false);
 
 const agregarRegistro = () => {
     limpiarDoctor();
@@ -107,6 +113,11 @@ const editarDoctor = (item) => {
     setDoctor(item);
     accion_dialog.value = 1;
     open_dialog.value = true;
+};
+const updatePassword = (item) => {
+    setUsuario(item.user);
+    accion_dialog_pass.value = 1;
+    open_dialog_pass.value = true;
 };
 
 const eliminarDoctor = (item) => {
@@ -251,6 +262,13 @@ const eliminarDoctor = (item) => {
                                         </td>
                                         <td class="text-right">
                                             <v-btn
+                                                color="cyan-darken-2"
+                                                size="small"
+                                                class="pa-1 ma-1"
+                                                @click="updatePassword(item)"
+                                                icon="mdi-key-variant"
+                                            ></v-btn>
+                                            <v-btn
                                                 color="yellow"
                                                 size="small"
                                                 class="pa-1 ma-1"
@@ -280,7 +298,8 @@ const eliminarDoctor = (item) => {
                                                         <v-col
                                                             cols="12"
                                                             class="pb-0 text-caption font-weight-black"
-                                                            >Fecha de nacimiento</v-col
+                                                            >Fecha de
+                                                            nacimiento</v-col
                                                         >
                                                         <v-col cols="12">{{
                                                             item.fecha_nac
@@ -359,7 +378,8 @@ const eliminarDoctor = (item) => {
                                                             Registro</v-col
                                                         >
                                                         <v-col cols="12">{{
-                                                            item.user.fecha_registro_t
+                                                            item.user
+                                                                .fecha_registro_t
                                                         }}</v-col>
                                                     </v-row>
                                                 </v-col>
@@ -475,7 +495,10 @@ const eliminarDoctor = (item) => {
                                                     class="flex-item"
                                                     data-label="Fecha de Registro"
                                                 >
-                                                    {{ item.user.fecha_registro_t }}
+                                                    {{
+                                                        item.user
+                                                            .fecha_registro_t
+                                                    }}
                                                 </li>
                                                 <li
                                                     class="flex-item"
@@ -512,6 +535,15 @@ const eliminarDoctor = (item) => {
                                                     class="text-center pa-5"
                                                 >
                                                     <v-btn
+                                                        color="cyan-darken-2"
+                                                        size="small"
+                                                        class="pa-1 ma-1"
+                                                        @click="
+                                                            updatePassword(item)
+                                                        "
+                                                        icon="mdi-key-variant"
+                                                    ></v-btn>
+                                                    <v-btn
                                                         color="yellow"
                                                         size="small"
                                                         class="pa-1 ma-1"
@@ -546,5 +578,11 @@ const eliminarDoctor = (item) => {
             @envio-formulario="recargaDoctors"
             @cerrar-dialog="open_dialog = false"
         ></Formulario>
+        <FormPassword
+            :open_dialog="open_dialog_pass"
+            :accion_dialog="accion_dialog_pass"
+            @envio-formulario="open_dialog_pass = false"
+            @cerrar-dialog="open_dialog_pass = false"
+        ></FormPassword>
     </v-container>
 </template>

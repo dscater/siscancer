@@ -23,7 +23,9 @@ const user_logeado = ref({
 
 const submenus = {
     "reportes.usuarios": "Reportes",
-    "reportes.usuarios2": "Reportes",
+    "reportes.historial_pacientes": "Reportes",
+    "reportes.pacientes": "Reportes",
+    "reportes.diagnosticos": "Reportes",
 };
 
 const route_current = ref("");
@@ -258,14 +260,27 @@ const scrollActive = () => {
                 >
             </v-list-item>
 
-            <v-list-item class="text-caption"
+            <v-list-item
+                class="text-caption"
+                v-if="
+                    oUser.permisos.includes('reportes.usuarios') ||
+                    oUser.permisos.includes('reportes.servicio')
+                "
                 ><span v-if="rail && !mobile" class="text-center d-block"
                     ><v-icon>mdi-dots-horizontal</v-icon></span
                 >
                 <span v-else>REPORTES</span></v-list-item
             >
             <!-- SUBGROUP -->
-            <v-list-group value="Reportes">
+            <v-list-group
+                value="Reportes"
+                v-if="
+                    oUser.permisos.includes('reportes.usuarios') ||
+                    oUser.permisos.includes('reportes.historial_pacientes') ||
+                    oUser.permisos.includes('reportes.pacientes') ||
+                    oUser.permisos.includes('reportes.diagnosticos')
+                "
+            >
                 <template v-slot:activator="{ props }">
                     <v-list-item
                         v-bind="props"
@@ -273,7 +288,9 @@ const scrollActive = () => {
                         title="Reportes"
                         :class="[
                             route_current == 'reportes.usuarios' ||
-                            route_current == 'reportes.usuarios2'
+                            route_current == 'reportes.historial_pacientes' ||
+                            route_current == 'reportes.pacientes' ||
+                            route_current == 'reportes.diagnosticos'
                                 ? 'active'
                                 : '',
                         ]"
@@ -288,8 +305,9 @@ const scrollActive = () => {
                     >
                 </template>
                 <v-list-item
+                    v-if="oUser.permisos.includes('reportes.usuarios')"
                     prepend-icon="mdi-chevron-right"
-                    title="Vuetify"
+                    title="Usuarios"
                     :class="[
                         route_current == 'reportes.usuarios' ? 'active' : '',
                     ]"
@@ -305,8 +323,17 @@ const scrollActive = () => {
                     ></v-list-item
                 >
                 <v-list-item
+                    v-if="
+                        oUser.permisos.includes('reportes.historial_pacientes')
+                    "
                     prepend-icon="mdi-chevron-right"
-                    title="Vuetify 2"
+                    title="Historial de Pacientes"
+                    :class="[
+                        route_current == 'reportes.historial_pacientes'
+                            ? 'active'
+                            : '',
+                    ]"
+                    @click="cambiarUrl(route('reportes.historial_pacientes'))"
                     link
                 >
                     <v-tooltip
@@ -314,7 +341,45 @@ const scrollActive = () => {
                         color="white"
                         activator="parent"
                         location="end"
-                        >Vuetify 2</v-tooltip
+                        >Historial de Pacientes</v-tooltip
+                    ></v-list-item
+                >
+                <v-list-item
+                    v-if="oUser.permisos.includes('reportes.pacientes')"
+                    prepend-icon="mdi-chevron-right"
+                    title="Lista de Pacientes"
+                    :class="[
+                        route_current == 'reportes.pacientes' ? 'active' : '',
+                    ]"
+                    @click="cambiarUrl(route('reportes.pacientes'))"
+                    link
+                >
+                    <v-tooltip
+                        v-if="rail && !mobile"
+                        color="white"
+                        activator="parent"
+                        location="end"
+                        >Lista de Pacientes</v-tooltip
+                    ></v-list-item
+                >
+                <v-list-item
+                    v-if="oUser.permisos.includes('reportes.diagnosticos')"
+                    prepend-icon="mdi-chevron-right"
+                    title="Diagnósticos por Imagen"
+                    :class="[
+                        route_current == 'reportes.diagnosticos'
+                            ? 'active'
+                            : '',
+                    ]"
+                    @click="cambiarUrl(route('reportes.diagnosticos'))"
+                    link
+                >
+                    <v-tooltip
+                        v-if="rail && !mobile"
+                        color="white"
+                        activator="parent"
+                        location="end"
+                        >Diagnósticos por Imagen</v-tooltip
                     ></v-list-item
                 >
             </v-list-group>

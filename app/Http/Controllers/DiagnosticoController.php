@@ -40,13 +40,13 @@ class DiagnosticoController extends Controller
     public function paginado(Request $request)
     {
         $search = $request->search;
-        $diagnosticos = Diagnostico::with(["paciente"])->select("diagnosticos.*");
+        $diagnosticos = Diagnostico::with(["paciente"])->select("diagnosticos.*")
+            ->join("pacientes", "pacientes.id", "=", "diagnosticos.paciente_id");
 
         if (trim($search) != "") {
-            $diagnosticos->orWhereRaw("CONCAT(nombre,' ', paterno,' ', materno) LIKE ?", ["%$search%"]);
-            $diagnosticos->orWhere("ci", "LIKE", "%$search%");
+            $diagnosticos->orWhereRaw("CONCAT(pacientes.nombre,' ', pacientes.paterno,' ', pacientes.materno) LIKE ?", ["%$search%"]);
+            $diagnosticos->orWhere("pacientes.ci", "LIKE", "%$search%");
         }
-
         $diagnosticos = $diagnosticos->paginate($request->itemsPerPage);
         return response()->JSON([
             "diagnosticos" => $diagnosticos

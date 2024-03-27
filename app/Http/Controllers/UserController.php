@@ -40,6 +40,12 @@ class UserController extends Controller
             "entrenamientos.create",
             "entrenamientos.edit",
             "entrenamientos.destroy",
+
+            "reportes.usuarios",
+            "reportes.historial_pacientes",
+            "reportes.pacientes",
+            "reportes.diagnosticos",
+
         ],
         "DOCTOR" => [
             "vuetify",

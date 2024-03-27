@@ -161,7 +161,7 @@ iframe {
 .__sidebar .v-list-group__items .v-list-item.active,
 .__sidebar .v-list-group__items .v-list-item.active .v-list-item__overlay {
     background: none;
-    background-color: none;
+    background-color: var(--fondo_app);
     color: var(--principal);
 }
 

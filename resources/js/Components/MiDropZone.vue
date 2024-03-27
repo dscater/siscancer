@@ -45,16 +45,25 @@
 
 <script>
 export default {
+    props: {
+        files: {
+            type: Array,
+            default: [],
+        },
+    },
     data() {
         return {
             dragging: false,
-            archivos_existentes: [],
+            archivos_existentes: this.files,
+            eliminados: [],
         };
     },
     methods: {
         quitarArchivo(index) {
             if (this.archivos_existentes[index].id != 0) {
                 // existente en BD
+                this.eliminados.push(this.archivos_existentes[index].id);
+                this.$emit("addEliminados", this.eliminados);
             }
             this.archivos_existentes.splice(index, 1);
             this.$emit("UpdateFiles", this.archivos_existentes);
