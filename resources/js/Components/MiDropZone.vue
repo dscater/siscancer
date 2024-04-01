@@ -6,25 +6,38 @@
         @drop.stop="handleDrop"
         @click="openFilePicker"
     >
-        <div class="archivos_cargados">
-            <div class="archivo" v-for="(item, index) in archivos_existentes">
-                <button
-                    type="button"
-                    class="btn_quitar"
-                    @click.stop="quitarArchivo(index)"
-                >
-                    <i class="mdi mdi-close"></i>
-                </button>
-                <div class="thumbail">
-                    <img :src="item.url_file" alt="Icon" />
-                </div>
-                <div class="info_archivo">
-                    <div class="nombre">
-                        {{ item.name }}
+        <v-virtual-scroll
+            :height="
+                archivos_existentes.length > 0
+                    ? archivos_existentes.length >= 1 &&
+                      archivos_existentes.length <= 3
+                        ? 300
+                        : 500
+                    : 0
+            "
+            :items="archivos_existentes"
+            class="archivos_cargados w-100"
+        >
+            <template v-slot:default="{ item, index }">
+                <div class="archivo">
+                    <button
+                        type="button"
+                        class="btn_quitar"
+                        @click.stop="quitarArchivo(index)"
+                    >
+                        <i class="mdi mdi-close"></i>
+                    </button>
+                    <div class="thumbail">
+                        <img :src="item.url_file" alt="Icon" />
+                    </div>
+                    <div class="info_archivo">
+                        <div class="nombre">
+                            {{ item.name }}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </template>
+        </v-virtual-scroll>
         <div class="contenedor_info">
             <div v-if="!dragging" class="msj_drag">
                 Arrastra y suelta archivos aquí o haz clic para seleccionar
@@ -49,6 +62,10 @@ export default {
         files: {
             type: Array,
             default: [],
+        },
+        maximo: {
+            type: Number,
+            default: 10,
         },
     },
     data() {
@@ -83,12 +100,25 @@ export default {
                 // Si se inició la carga mediante arrastrar y soltar
                 files = eventOrFiles;
             }
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                this.generateThumbnail(file);
+            let total_cargados =
+                parseInt(files.length) +
+                parseInt(this.archivos_existentes.length);
+            console.log(total_cargados);
+            if (total_cargados <= this.maximo) {
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    this.generateThumbnail(file);
+                }
+                this.$refs.fileInput.value = null;
+            } else {
+                Swal.fire({
+                    icon: "info",
+                    title: "Error",
+                    text: `No es posible cargar mas de ${this.maximo} imagénes`,
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: `Aceptar`,
+                });
             }
-            this.$refs.fileInput.value = null;
         },
         openFilePicker() {
             // Simula el clic en el input de tipo file
@@ -170,13 +200,20 @@ export default {
 .archivos_cargados {
     justify-content: center;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     gap: 15px;
 }
 
+.v-virtual-scroll__container {
+    width: 100%;
+    display: flex !important;
+}
+
 .archivos_cargados .archivo {
     position: relative;
-    width: 80px;
+    width: 200px;
+    padding: 20px;
 }
 
 .archivos_cargados .archivo .thumbail {
@@ -186,10 +223,10 @@ export default {
     text-align: center;
     width: 100%;
     overflow: hidden;
-    height: 40px;
+    height: 180px;
 }
 .archivos_cargados .archivo .thumbail img {
-    height: 50px;
+    height: 180px;
 }
 
 .archivos_cargados .archivo .info_archivo {
@@ -202,8 +239,8 @@ export default {
 .archivos_cargados .archivo .btn_quitar {
     position: absolute;
     margin: 0px;
-    top: -10px;
-    right: 0px;
+    top: 10px;
+    right: 20px;
     font-size: 1.3em;
 }
 

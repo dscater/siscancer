@@ -1,5 +1,4 @@
 <script setup>
-import App from "@/Layouts/App.vue";
 import { router } from "@inertiajs/vue3";
 import { computed } from "vue";
 // componentes

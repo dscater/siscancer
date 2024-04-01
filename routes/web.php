@@ -7,6 +7,7 @@ use App\Http\Controllers\EntrenamientoController;
 use App\Http\Controllers\EntrenamientoImagenController;
 use App\Http\Controllers\HistorialArchivoController;
 use App\Http\Controllers\HistorialPacienteController;
+use App\Http\Controllers\InicioController;
 use App\Http\Controllers\InstitucionController;
 use App\Http\Controllers\MaquinariaController;
 use App\Http\Controllers\MaterialController;
@@ -58,9 +59,8 @@ Route::middleware('auth')->group(function () {
     })->name("vuetify");
 
     // INICIO
-    Route::get('/inicio', function () {
-        return Inertia::render('Home');
-    })->name('inicio');
+    Route::get('/inicio', [InicioController::class, 'inicio'])->name('inicio');
+    Route::get("/inicio/getMaximoImagenes", [InicioController::class, 'getMaximoImagenes'])->name("entrenamientos.getMaximoImagenes");
 
     // INSTITUCION
     Route::resource("institucions", InstitucionController::class)->only(
@@ -137,13 +137,13 @@ Route::middleware('auth')->group(function () {
     // REPORTES
     Route::get('reportes/usuarios', [ReporteController::class, 'usuarios'])->name("reportes.usuarios");
     Route::get('reportes/r_usuarios', [ReporteController::class, 'r_usuarios'])->name("reportes.r_usuarios");
-    
+
     Route::get('reportes/pacientes', [ReporteController::class, 'pacientes'])->name("reportes.pacientes");
     Route::get('reportes/r_pacientes', [ReporteController::class, 'r_pacientes'])->name("reportes.r_pacientes");
-    
+
     Route::get('reportes/historial_pacientes', [ReporteController::class, 'historial_pacientes'])->name("reportes.historial_pacientes");
     Route::get('reportes/r_historial_pacientes', [ReporteController::class, 'r_historial_pacientes'])->name("reportes.r_historial_pacientes");
-    
+
     Route::get('reportes/diagnosticos', [ReporteController::class, 'diagnosticos'])->name("reportes.diagnosticos");
     Route::get('reportes/r_diagnosticos', [ReporteController::class, 'r_diagnosticos'])->name("reportes.r_diagnosticos");
 });

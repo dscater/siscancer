@@ -85,10 +85,12 @@ function cargaArchivo(e, key) {
     e.target.value = null;
 }
 
+const muestra_resultado = ref(false);
 const loading = ref(false);
 
 const generarDiagnostico = async () => {
     loading.value = true;
+    muestra_resultado.value = false;
 
     var formData = new FormData();
     formData.append("imagen", form["imagen1"]);
@@ -107,10 +109,22 @@ const generarDiagnostico = async () => {
             form["diagnostico"] = response.data.diagnostico;
             setTimeout(() => {
                 loading.value = false;
+                muestra_resultado.value = true;
             }, 1500);
         }
     } catch (err) {
+        muestra_resultado.value = false;
+        loading.value = false;
         console.log(err);
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: `${
+                err.response ? err.response.data?.message : "Ocurrió un error"
+            }`,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: `Aceptar`,
+        });
     }
 };
 
@@ -333,7 +347,12 @@ onMounted(() => {
                                     </v-card>
                                 </v-col>
                             </v-row>
-                            <v-row v-if="form.diagnostico">
+                            <v-row
+                                v-if="
+                                    (form.diagnostico && muestra_resultado) ||
+                                    form.id != 0
+                                "
+                            >
                                 <v-col cols="12">
                                     <v-card>
                                         <v-card-title>

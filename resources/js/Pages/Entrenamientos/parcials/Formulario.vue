@@ -23,6 +23,7 @@ const tituloDialog = computed(() => {
 
 const disabled = ref(false);
 const loading = ref(false);
+const maximo_imagenes = ref(10);
 
 const enviarFormulario = () => {
     loading.value = true;
@@ -31,38 +32,50 @@ const enviarFormulario = () => {
             ? route("entrenamientos.store")
             : route("entrenamientos.update", form.id);
 
-    form.post(url, {
-        preserveScroll: true,
-        forceFormData: true,
-        onSuccess: () => {
-            loading.value = false;
-            Swal.fire({
-                icon: "success",
-                title: "Correcto",
-                text: `${flash.bien ? flash.bien : "Proceso realizado"}`,
-                confirmButtonColor: "#3085d6",
-                confirmButtonText: `Aceptar`,
-            });
-            limpiarEntrenamiento();
-        },
-        onError: (err) => {
-            loading.value = false;
+    for (let i = 0; i < form.entrenamiento_imagens.length; i++) {
+        const file = form["entrenamiento_imagens"][i];
+        if (file instanceof File) {
+            console.log("archivo");
+        } else {
+            console.log("no  archivo");
+            form["entrenamiento_imagens"].splice(i, 1);
+        }
+    }
 
-            Swal.fire({
-                icon: "info",
-                title: "Error",
-                text: `${
-                    flash.error
-                        ? flash.error
-                        : err.error
-                        ? err.error
-                        : "Hay errores en el formulario"
-                }`,
-                confirmButtonColor: "#3085d6",
-                confirmButtonText: `Aceptar`,
-            });
-        },
-    });
+    setTimeout(() => {
+        form.post(url, {
+            preserveScroll: true,
+            forceFormData: true,
+            onSuccess: () => {
+                loading.value = false;
+                Swal.fire({
+                    icon: "success",
+                    title: "Correcto",
+                    text: `${flash.bien ? flash.bien : "Proceso realizado"}`,
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: `Aceptar`,
+                });
+                limpiarEntrenamiento();
+            },
+            onError: (err) => {
+                loading.value = false;
+
+                Swal.fire({
+                    icon: "info",
+                    title: "Error",
+                    text: `${
+                        flash.error
+                            ? flash.error
+                            : err.error
+                            ? err.error
+                            : "Hay errores en el formulario"
+                    }`,
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: `Aceptar`,
+                });
+            },
+        });
+    }, 500);
 };
 
 const cargarListas = () => {
@@ -103,6 +116,11 @@ const detectaEliminados = (files) => {
     }, 500);
 };
 
+const getMaximoImagens = () => {
+    axios.get(route("entrenamientos.getMaximoImagenes")).then((response) => {
+        maximo_imagenes.value = response.data;
+    });
+};
 onMounted(() => {
     if (form.id && form.id != "") {
         cargarListas({
@@ -111,6 +129,7 @@ onMounted(() => {
     } else {
         cargarListas();
     }
+    getMaximoImagens();
 });
 </script>
 
@@ -212,10 +231,28 @@ onMounted(() => {
                                     >
                                         Cargar imágenes
                                     </h4>
+                                    <span
+                                        v-if="
+                                            form.entrenamiento_imagens.length >
+                                            0
+                                        "
+                                        >{{
+                                            form.entrenamiento_imagens.length
+                                        }}
+                                        imagénes cargadas</span
+                                    >
                                 </v-col>
-                                <v-col cols="12">
+                                <v-col
+                                    cols="12"
+                                    :style="[
+                                        loading
+                                            ? 'max-height:180px;overflow:hidden;'
+                                            : '',
+                                    ]"
+                                >
                                     <MiDropZone
                                         :files="form.entrenamiento_imagens"
+                                        :maximo="maximo_imagenes"
                                         @UpdateFiles="detectaArchivos"
                                         @addEliminados="detectaEliminados"
                                     ></MiDropZone>

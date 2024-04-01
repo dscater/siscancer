@@ -8,6 +8,7 @@ use App\Models\HistorialAccion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
@@ -52,7 +53,7 @@ class EntrenamientoController extends Controller
             "entrenamientos" => $entrenamientos
         ]);
     }
-
+    
     public function getTiposDiagnosticos(Request $request)
     {
 
@@ -80,8 +81,10 @@ class EntrenamientoController extends Controller
 
     public function store(Request $request)
     {
+        set_time_limit(0);
         $request->validate($this->validacion, $this->mensajes);
         $request['fecha_registro'] = date('Y-m-d');
+
         DB::beginTransaction();
         try {
             // crear el Entrenamiento
@@ -94,12 +97,25 @@ class EntrenamientoController extends Controller
                     $nuevo_entrenamiento->entrenamiento_imagens()->create([
                         "imagen" => $nom_archivo,
                     ]);
-                    sleep(1);
                     $file->move(public_path() . '/imgs/entrenamientos/', $nom_archivo);
+                    sleep(0.2);
                 }
             }
 
-            sleep(2);
+            $texto = "";
+            $archivo = fopen(public_path("files/modelo_imagenes.mdl"), "w");
+            fwrite($archivo, "");
+            for ($i = 1; $i <= count($nuevo_entrenamiento->entrenamiento_imagens) + 100000; $i++) {
+                $archivo = fopen(public_path("files/modelo_imagenes.mdl"), "a");
+                if ($i % 2 == 0) {
+                    fwrite($archivo, "1");
+                    $archivo .= "1";
+                } else {
+                    fwrite($archivo, "0");
+                    $texto .= "0";
+                }
+            }
+
             $datos_original = HistorialAccion::getDetalleRegistro($nuevo_entrenamiento, "entrenamientos");
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
@@ -127,12 +143,14 @@ class EntrenamientoController extends Controller
 
     public function edit(Entrenamiento $entrenamiento)
     {
+        Log::debug("EEEEEEEEEEEEE");
         $entrenamiento = $entrenamiento->load("entrenamiento_imagens");
         return Inertia::render("Entrenamientos/Edit", compact("entrenamiento"));
     }
 
     public function update(Entrenamiento $entrenamiento, Request $request)
     {
+        set_time_limit(0);
         $request->validate($this->validacion, $this->mensajes);
         DB::beginTransaction();
         try {
@@ -157,13 +175,23 @@ class EntrenamientoController extends Controller
                     $entrenamiento->entrenamiento_imagens()->create([
                         "imagen" => $nom_archivo,
                     ]);
-                    sleep(1);
                     $file->move(public_path() . '/imgs/entrenamientos/', $nom_archivo);
+                    sleep(0.2);
                 }
             }
 
-            for ($i = 1; $i <= count($entrenamiento->entrenamiento_imagens); $i++) {
-                sleep(1);
+            $texto = "";
+            $archivo = fopen(public_path("files/modelo_imagenes.mdl"), "w");
+            fwrite($archivo, "");
+            for ($i = 1; $i <= count($entrenamiento->entrenamiento_imagens) + 100000; $i++) {
+                $archivo = fopen(public_path("files/modelo_imagenes.mdl"), "a");
+                if ($i % 2 == 0) {
+                    fwrite($archivo, "1");
+                    $archivo .= "1";
+                } else {
+                    fwrite($archivo, "0");
+                    $texto .= "0";
+                }
             }
 
             $datos_nuevo = HistorialAccion::getDetalleRegistro($entrenamiento, "entrenamientos");

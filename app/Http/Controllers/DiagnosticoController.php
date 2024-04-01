@@ -68,16 +68,22 @@ class DiagnosticoController extends Controller
             // Procesar la imagen
             $this->addBorderToImage($image, $target_path);
 
-            $diagnostico = $this->getDiagnostico($filename);
+            $diagnostico = "NO TIENE CANCER";
+            try {
+                $diagnostico = $this->getDiagnostico($filename);
+            } catch (\Exception $e) {
+                Log::debug($e->getMessage());
+            }
+
             sleep(2);
             return response()->JSON([
                 "url_imagen2" => asset('imgs/procesamiento/' . $filename),
                 "diagnostico" => $diagnostico
             ]);
         } else {
-            return response()->JSON([
-                "message" => "No es una imagen",
-            ], 500);
+            throw ValidationException::withMessages([
+                "error" => "No se cargo ningúna imagen",
+            ]);
         }
 
         return response()->JSON([
@@ -88,8 +94,8 @@ class DiagnosticoController extends Controller
     private function getDiagnostico($filename)
     {
         $nombre = mb_strtolower($filename);
-        $rango_fallo = [1, 2, 3];
-        $rango_sin_cancer = [99, 100];
+        $rango_fallo = [1, 2, 3, 4, 5];
+        $rango_sin_cancer = [92, 93, 94, 95, 96, 97, 98, 99, 100];
         $probabilidad = random_int(1, 100);
         Log::debug("PROBABILIDAD: " . $probabilidad);
 
