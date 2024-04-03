@@ -18,6 +18,11 @@ class UserController extends Controller
             "usuarios.edit",
             "usuarios.destroy",
 
+            "institucions.index",
+            "institucions.create",
+            "institucions.edit",
+            "institucions.destroy",
+
             "doctors.index",
             "doctors.create",
             "doctors.edit",
