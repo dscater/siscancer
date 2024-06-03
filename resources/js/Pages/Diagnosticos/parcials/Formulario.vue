@@ -129,6 +129,10 @@ const generarDiagnostico = async () => {
 };
 
 const generaArchivo2 = async (url) => {
+    let array_url = url.split("?");
+    console.log(url);
+    url = array_url[0];
+    console.log(url);
     const response = await axios.get(url, { responseType: "blob" });
     // Obtener la extensión del archivo desde la URL
     const extension = url.split(".").pop(); // Obtener la extensión del archivo

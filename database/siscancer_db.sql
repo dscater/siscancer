@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 01-04-2024 a las 20:25:33
+-- Tiempo de generación: 03-06-2024 a las 23:05:30
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -45,7 +45,7 @@ CREATE TABLE `diagnosticos` (
 --
 
 INSERT INTO `diagnosticos` (`id`, `paciente_id`, `imagen1`, `imagen2`, `diagnostico`, `descripcion`, `fecha_diagnostico`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Diagnostico1_17115603491.jpg', 'Diagnostico1_17115603492.jpg', 'CANCER DE MAMA BENIGNO', 'DESCRIPCION DIAGNOSTICO #1', '2024-04-01', '2024-03-27', '2024-03-27 17:20:08', '2024-04-01 19:52:56');
+(1, 1, 'Diagnostico1_17174557431.jpg', 'Diagnostico1_17174557432.jpg', 'CANCER DE MAMA BENIGNO', 'DESCRIPCION DIAGNOSTICO #1', '2024-06-03', '2024-03-27', '2024-03-27 17:20:08', '2024-06-03 23:02:23');
 
 -- --------------------------------------------------------
 
@@ -362,7 +362,8 @@ INSERT INTO `entrenamiento_imagens` (`id`, `entrenamiento_id`, `imagen`, `create
 (248, 3, 'imagen31712001579_197.jpg', '2024-04-01 19:59:39', '2024-04-01 19:59:39'),
 (249, 3, 'imagen31712001579_198.jpg', '2024-04-01 19:59:39', '2024-04-01 19:59:39'),
 (250, 3, 'imagen31712001579_199.jpg', '2024-04-01 19:59:39', '2024-04-01 19:59:39'),
-(251, 3, 'imagen31712003054_99.jpg', '2024-04-01 20:24:14', '2024-04-01 20:24:14');
+(251, 3, 'imagen31712003054_99.jpg', '2024-04-01 20:24:14', '2024-04-01 20:24:14'),
+(252, 2, 'imagen21712003446_10.jpg', '2024-04-01 20:30:46', '2024-04-01 20:30:46');
 
 -- --------------------------------------------------------
 
@@ -505,7 +506,10 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (113, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 3<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 15:59:39<br/>updated_at: 2024-04-01 15:59:39<br/>', 'id: 3<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 15:59:39<br/>updated_at: 2024-04-01 15:59:39<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-04-01', '16:08:51', '2024-04-01 20:08:51', '2024-04-01 20:08:51'),
 (114, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 3<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 15:59:39<br/>updated_at: 2024-04-01 15:59:39<br/>', 'id: 3<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 15:59:39<br/>updated_at: 2024-04-01 15:59:39<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-04-01', '16:22:24', '2024-04-01 20:22:24', '2024-04-01 20:22:24'),
 (115, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 3<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 15:59:39<br/>updated_at: 2024-04-01 15:59:39<br/>', 'id: 3<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 15:59:39<br/>updated_at: 2024-04-01 15:59:39<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-04-01', '16:23:49', '2024-04-01 20:23:49', '2024-04-01 20:23:49'),
-(116, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 3<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 15:59:39<br/>updated_at: 2024-04-01 15:59:39<br/>', 'id: 3<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 15:59:39<br/>updated_at: 2024-04-01 15:59:39<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-04-01', '16:24:34', '2024-04-01 20:24:34', '2024-04-01 20:24:34');
+(116, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 3<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 15:59:39<br/>updated_at: 2024-04-01 15:59:39<br/>', 'id: 3<br/>tipo: CANCER DE MAMA MALIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 15:59:39<br/>updated_at: 2024-04-01 15:59:39<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-04-01', '16:24:34', '2024-04-01 20:24:34', '2024-04-01 20:24:34'),
+(117, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN DIAGNOSTICO POR IMAGEN', 'id: 1<br/>paciente_id: 1<br/>imagen1: Diagnostico1_17115603491.jpg<br/>imagen2: Diagnostico1_17115603492.jpg<br/>diagnostico: CANCER DE MAMA BENIGNO<br/>descripcion: DESCRIPCION DIAGNOSTICO #1<br/>fecha_diagnostico: 2024-04-01<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 13:20:08<br/>updated_at: 2024-04-01 15:52:56<br/>', 'id: 1<br/>paciente_id: 1<br/>imagen1: Diagnostico1_17115603491.jpg<br/>imagen2: Diagnostico1_17115603492.jpg<br/>diagnostico: CANCER DE MAMA BENIGNO<br/>descripcion: DESCRIPCION DIAGNOSTICO #1<br/>fecha_diagnostico: 2024-04-01<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 13:20:08<br/>updated_at: 2024-04-01 15:52:56<br/>', 'DIAGNOSTICO POR IMAGENES', '2024-04-01', '16:25:57', '2024-04-01 20:25:57', '2024-04-01 20:25:57'),
+(118, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN ENTRENAMIENTO DE IMAGEN', 'id: 2<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 14:10:45<br/>updated_at: 2024-04-01 14:10:45<br/>', 'id: 2<br/>tipo: CANCER DE MAMA BENIGNO<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 14:10:45<br/>updated_at: 2024-04-01 14:10:45<br/>', 'ENTRENAMIENTO DE IMAGENES', '2024-04-01', '16:31:04', '2024-04-01 20:31:04', '2024-04-01 20:31:04'),
+(119, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN DIAGNOSTICO POR IMAGEN', 'id: 1<br/>paciente_id: 1<br/>imagen1: Diagnostico1_17115603491.jpg<br/>imagen2: Diagnostico1_17115603492.jpg<br/>diagnostico: CANCER DE MAMA BENIGNO<br/>descripcion: DESCRIPCION DIAGNOSTICO #1<br/>fecha_diagnostico: 2024-04-01<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 13:20:08<br/>updated_at: 2024-04-01 15:52:56<br/>', 'id: 1<br/>paciente_id: 1<br/>imagen1: Diagnostico1_17174557431.jpg<br/>imagen2: Diagnostico1_17174557432.jpg<br/>diagnostico: CANCER DE MAMA BENIGNO<br/>descripcion: DESCRIPCION DIAGNOSTICO #1<br/>fecha_diagnostico: 2024-06-03<br/>fecha_registro: 2024-03-27<br/>created_at: 2024-03-27 13:20:08<br/>updated_at: 2024-06-03 19:02:23<br/>', 'DIAGNOSTICO POR IMAGENES', '2024-06-03', '19:02:23', '2024-06-03 23:02:23', '2024-06-03 23:02:23');
 
 -- --------------------------------------------------------
 
@@ -591,7 +595,7 @@ CREATE TABLE `institucions` (
 --
 
 INSERT INTO `institucions` (`id`, `nombre_sistema`, `alias`, `razon_social`, `nit`, `ciudad`, `dir`, `fono`, `correo`, `web`, `actividad`, `logo`, `created_at`, `updated_at`) VALUES
-(1, 'SISCANCER', 'SC', 'SISCANCER S.A.', '11111111', 'LA PAZ', 'LOS OLIVOS', '7777777', 'SISCANCER@GMAIL.COM', 'SISCANCER.COM', 'ACTIVIDAD', 'logo.webp', NULL, '2024-03-09 16:40:13');
+(1, 'SISCANCER', 'SC', 'SISCANCER S.A.', '11111111', 'LA PAZ', 'LOS OLIVOS', '7777777', 'SISCANCER@GMAIL.COM', 'SISCANCER.COM', 'ACTIVIDAD', 'logo.webp', NULL, '2024-04-03 18:59:37');
 
 -- --------------------------------------------------------
 
@@ -821,13 +825,13 @@ ALTER TABLE `entrenamientos`
 -- AUTO_INCREMENT de la tabla `entrenamiento_imagens`
 --
 ALTER TABLE `entrenamiento_imagens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_archivos`

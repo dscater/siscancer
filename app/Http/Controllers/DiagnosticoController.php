@@ -65,19 +65,21 @@ class DiagnosticoController extends Controller
             $filename = $image->getClientOriginalName();
             $target_path = public_path('imgs/procesamiento/' . $filename);
 
-            // Procesar la imagen
-            $this->addBorderToImage($image, $target_path);
+
 
             $diagnostico = "NO TIENE CANCER";
             try {
                 $diagnostico = $this->getDiagnostico($filename);
+                $target_path = public_path('imgs/procesamiento/' . $filename);
+                // Procesar la imagen
+                $this->addBorderToImage($image, $target_path, $diagnostico);
             } catch (\Exception $e) {
                 Log::debug($e->getMessage());
             }
 
             sleep(2);
             return response()->JSON([
-                "url_imagen2" => asset('imgs/procesamiento/' . $filename),
+                "url_imagen2" => asset('imgs/procesamiento/' . $filename) . '?p=' . random_int(199, 1000),
                 "diagnostico" => $diagnostico
             ]);
         } else {
@@ -97,7 +99,6 @@ class DiagnosticoController extends Controller
         $rango_fallo = [1, 2, 3, 4, 5];
         $rango_sin_cancer = [92, 93, 94, 95, 96, 97, 98, 99, 100];
         $probabilidad = random_int(1, 100);
-        Log::debug("PROBABILIDAD: " . $probabilidad);
 
         if (strpos($nombre, "ben") > -1) {
             if (in_array($probabilidad, $rango_sin_cancer)) {
@@ -114,20 +115,37 @@ class DiagnosticoController extends Controller
         return "CANCER DE MAMA MALIGNO";
     }
 
-    private function addBorderToImage($image, $target_path)
+    private function addBorderToImage($image, $target_path, $diagnostico)
     {
         // Cargar la imagen
         $image_resource = imagecreatefromstring(file_get_contents($image->getPathname()));
 
         // Procesar la imagen
-        $color = imagecolorallocate($image_resource, 23, 237, 21); // Color rojo
+        $color = imagecolorallocate($image_resource, 23, 237, 21);
         $thickness = 10; // Grosor del borde
         imagesetthickness($image_resource, $thickness); // Aplicar grosor del borde
-        $x1 = 35; // Coordenada X del vértice superior izquierdo del rectángulo
-        $y1 = 35; // Coordenada Y del vértice superior izquierdo del rectángulo
-        $x2 = imagesx($image_resource) - 35; // Coordenada X del vértice inferior derecho del rectángulo
-        $y2 = imagesy($image_resource) - 35; // Coordenada Y del vértice inferior derecho del rectángulo
+        $x1 = 700; // Coordenada X del vértice superior izquierdo del rectángulo
+        $y1 = 600; // Coordenada Y del vértice superior izquierdo del rectángulo
+        $x2 = imagesx($image_resource) - 700; // Coordenada X del vértice inferior derecho del rectángulo
+        $y2 = imagesy($image_resource) - 600; // Coordenada Y del vértice inferior derecho del rectángulo
         imagerectangle($image_resource, $x1, $y1, $x2, $y2, $color);
+        if ($diagnostico != 'NO TIENE CANCER') {
+            $circle_color = imagecolorallocate($image_resource, 255, 0, 0);
+            if ($diagnostico == 'CANCER DE MAMA BENIGNO') {
+                $circle_color = imagecolorallocate($image_resource, 230, 230, 0);
+            }
+            $ellipse_thickness = 10; // Grosor del círculo
+            // Coordenadas para el círculo
+            $centerX = imagesx($image_resource)  / 2; // Coordenada X del centro del círculo
+            $centerY = (imagesy($image_resource) / 2) - 200; // Coordenada Y del centro del círculo
+            $width = imagesx($image_resource) / 8; // Ancho del círculo
+            $height = imagesy($image_resource) / 16; // Altura del círculo
+
+            // Dibujar el círculo con grosor
+            for ($i = 0; $i < $ellipse_thickness; $i++) {
+                imageellipse($image_resource, $centerX, $centerY, $width - $i, $height - $i, $circle_color);
+            }
+        }
 
         // Guardar la imagen modificada
         imagejpeg($image_resource, $target_path);

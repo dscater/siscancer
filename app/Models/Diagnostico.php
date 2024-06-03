@@ -33,12 +33,12 @@ class Diagnostico extends Model
 
     public function getUrlImagen1Attribute()
     {
-        return asset("imgs/diagnosticos/" . $this->imagen1);
+        return asset("imgs/diagnosticos/" . $this->imagen1) . '?p=' . random_int(199, 1000);
     }
 
     public function getUrlImagen2Attribute()
     {
-        return asset("imgs/diagnosticos/" . $this->imagen2);
+        return asset("imgs/diagnosticos/" . $this->imagen2) . '?p=' . random_int(199, 1000);
     }
 
     public function paciente()
